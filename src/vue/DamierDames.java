@@ -1,4 +1,4 @@
-package ui;
+package vue;
 
 import javafx.application.Application;
 
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class DamierDames extends Application {
 
-    private static final int SIZE = 8; // Taille de la grille 
+    private static final int SIZE = 10; // Taille de la grille 
 
     @Override
     public void start(Stage primaryStage) {
@@ -30,7 +30,7 @@ public class DamierDames extends Application {
                 if ((row + col) % 2 == 0) {
                     cell.setFill(Color.WHITE);
                 } else {
-                    cell.setFill(Color.BLACK);
+                    cell.setFill(Color.BLACK); 
                 }
                 grid.add(cell, col, row);
             }
