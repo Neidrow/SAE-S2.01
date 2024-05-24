@@ -39,8 +39,10 @@ public class GestionJeu {
     }
 
     public void annuler() {
-        // Annuler l'action en cours
+    if (jeuEnCours != null) {
+        jeuEnCours.annulerDernierCoup();
     }
+}
 
     public void supprimerPartieSauvegardee(String nomFichier) {
         File fichier = new File(nomFichier);
