@@ -1,8 +1,9 @@
 package modele;
 
 public class GestionJeu {
+	
     public void commencerJeu() {
-        // Démarrer une partie
+    	// commencer le jeu
     }
 
     public void chargerPartieSauvegardee(String nomFichier) {
