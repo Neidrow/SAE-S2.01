@@ -4,20 +4,48 @@ package vue;
  * La classe Piece représente un pion dans le jeu.
  */
 public class Piece {
-    private int x;
+    
+	private int x;
     private int y;
     private boolean isDame;
     private String proprietaire;
+    
+    /** est égale à la coordonnée de la cas la plus élogoignée */
+    public static final int CASE_MAX_PLATEAU = 9;
+    
+    /** est égale à la coordonnée de la cas la plus proche */
+    public static final int CASE_MIN_PLATEAU = 0;
 
     /**
-     * Constructeur pour initialiser un pion avec ses coordonnées, son type et son propriétaire.
+     * Constructeur pour initialiser un pion avec ses coordonnées, 
+     * son type et son propriétaire.
      *
-     * @param x           La coordonnée x du pion.
-     * @param y           La coordonnée y du pion.
-     * @param isDame      Indique si le pion est une dame (true) ou non (false).
-     * @param proprietaire Le nom du propriétaire du pion.
+     * @param x           La coordonnée horizontale du pion (0<=x<=9)
+     * @param y           La coordonnée verticale du pion (0<=y<=9)
+     * @param isDame      Indique si le pion est une dame (true)
+     *                                            ou non (false).
+     * @param proprietaire Le nom du propriétaire du pion, soit blanc
+     *                                                     soit noir.
+     * @throws IllegalArgumentException si le propriétaire s'il n'est
+     *         pas égal à blanc ou noir
+     * @throws IllegalArgumentException si le pion est placé sur une 
+     *         case blanche ( détectable si x+y est pair )
+     * @throws IllegalArgumentException si x ou y est supérieur
+     *         à 9 ou inférieur à 0
      */
     public Piece(int x, int y, boolean isDame, String proprietaire) {
+    	if (proprietaire != "noir" && proprietaire != "blanc") {
+    		throw new IllegalArgumentException("Le propriétaire est invalide");
+    	}
+    	if ((x+y)%2 != 1) {
+    		throw new IllegalArgumentException("Le pion est placé sur une "
+    				                        + "case blanche !");
+    	}
+    	if (x < CASE_MIN_PLATEAU || y < CASE_MIN_PLATEAU 
+    	    || x > CASE_MAX_PLATEAU || y > CASE_MAX_PLATEAU) {
+    		throw new IllegalArgumentException("Le pion n'est pas sur le"
+    				                                 + " damier !");
+    	}
         this.x = x;
         this.y = y;
         this.isDame = isDame;
