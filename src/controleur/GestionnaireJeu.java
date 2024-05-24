@@ -1,7 +1,6 @@
 package controleur;
 
 import vue.Piece;
-import modele.GestionJeu;
 
 /**
  * La classe Controleur gère les interactions entre l'interface utilisateur et le modèle de jeu.
@@ -29,29 +28,7 @@ public class GestionnaireJeu {
      * Cette méthode initialise une nouvelle partie avec les paramètres par défaut et met à jour l'interface graphique en conséquence.
      */
     public void initialiserPartie() {
-    	int x = 1;
-    	int y = 0;
-    	String proprietaire = "noir";
-    	boolean isDame = false; 
-        for(int i = 0; i >= 20; i++) {	
-        	new Piece(x, y, isDame, proprietaire);
-        	x += 2;
-        	if (x >= 10) {
-        		x -= 11;
-        		y++;
-        	}
-        }
-        x = 1;
-        y = 9;
-        proprietaire = "blanc";
-        for(int i = 0; i >= 20; i++) {	
-        	new Piece(x, y, isDame, proprietaire);
-        	x += 2;
-        	if (x >= 10) {
-        		x -= 11;
-        		y++;
-        	}
-        }
+        // Initialiser une nouvelle partie et mettre à jour l'interface graphique
     }
 
     /**
