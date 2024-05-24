@@ -1,27 +1,65 @@
 package modele;
 
+import java.io.*;
+
 public class GestionJeu {
+    private Jeu jeuEnCours;
+    private boolean partieSauvegardee;
+
     public void commencerJeu() {
-        // Démarrer une partie
+        jeuEnCours = new Jeu();
+        partieSauvegardee = false;
     }
 
     public void chargerPartieSauvegardee(String nomFichier) {
-        // Charger une partie à partir d'un fichier spécifié
+        try {
+            FileInputStream fileIn = new FileInputStream(nomFichier);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            jeuEnCours = (Jeu) in.readObject();
+            in.close();
+            fileIn.close();
+            partieSauvegardee = true;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void quitterJeu() {
-        // Quitter le jeu
+        if (partieSauvegardee) {
+            supprimerPartieSauvegardee("partie.sav");
+        }
+        System.exit(0);
     }
 
     public void confirmer() {
-        // Confirmer une action
+        if (partieSauvegardee) {
+            supprimerPartieSauvegardee("partie.sav");
+        }
+        sauvegarderPartie("partie.sav");
     }
 
     public void annuler() {
-        // Annuler une action
+        // Annuler l'action en cours
     }
 
     public void supprimerPartieSauvegardee(String nomFichier) {
-        // Supprimer une partie sauvegardée spécifique
+        File fichier = new File(nomFichier);
+        if (fichier.exists()) {
+            fichier.delete();
+            partieSauvegardee = false;
+        }
+    }
+
+    private void sauvegarderPartie(String nomFichier) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(nomFichier);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(jeuEnCours);
+            out.close();
+            fileOut.close();
+            partieSauvegardee = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
