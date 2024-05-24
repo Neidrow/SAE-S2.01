@@ -26,12 +26,14 @@ public class Piece {
      *                                            ou non (false).
      * @param proprietaire Le nom du propriétaire du pion, soit blanc
      *                                                     soit noir.
-     * @throws IllegalArgumentException si le propriétaire s'il n'est
-     *         pas égal à blanc ou noir
-     * @throws IllegalArgumentException si le pion est placé sur une 
-     *         case blanche ( détectable si x+y est pair )
-     * @throws IllegalArgumentException si x ou y est supérieur
-     *         à 9 ou inférieur à 0
+     * @throws IllegalArgumentException si :
+     * <ul>
+     * 		   <li> le propriétaire s'il n'est pas égal à blanc ou 
+     *              noir </li>
+     *         <li> le pion est placé sur une case blanche 
+     *              ( détectable si x+y est pair ) </li>
+     *         <li> x ou y est supérieur à 9 ou inférieur à 0 </li>
+     * </ul>
      */
     public Piece(int x, int y, boolean isDame, String proprietaire) {
     	if (proprietaire != "noir" && proprietaire != "blanc") {
@@ -40,8 +42,7 @@ public class Piece {
     	if ((x+y)%2 != 1) {
     		throw new IllegalArgumentException("Le pion est placé sur une "
     				                        + "case blanche !");
-    	}
-    	if (x < CASE_MIN_PLATEAU || y < CASE_MIN_PLATEAU 
+    	} else if (x < CASE_MIN_PLATEAU || y < CASE_MIN_PLATEAU 
     	    || x > CASE_MAX_PLATEAU || y > CASE_MAX_PLATEAU) {
     		throw new IllegalArgumentException("Le pion n'est pas sur le"
     				                                 + " damier !");
@@ -65,8 +66,21 @@ public class Piece {
      * Définit la coordonnée x du pion.
      *
      * @param x La nouvelle coordonnée x du pion.
+     * @throws IllegalArgumentException si :
+     * <ul>
+     *         <li> le pion est placé sur une case blanche 
+     *              ( détectable si x+y est pair ) </li>
+     *         <li> x est supérieur à 9 ou inférieur à 0 </li>
+     * </ul>
      */
     public void setX(int x) {
+    	if ((x+y)%2 != 1) {
+    		throw new IllegalArgumentException("Le pion est placé sur une "
+    				                        + "case blanche !");
+    	} else if (x < CASE_MIN_PLATEAU || x > CASE_MAX_PLATEAU ) {
+        		throw new IllegalArgumentException("Le pion n'est pas sur le"
+        				                                 + " damier !");
+        }
         this.x = x;
     }
 

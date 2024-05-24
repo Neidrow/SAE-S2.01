@@ -4,6 +4,7 @@
  */
 package test;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -21,17 +22,27 @@ class TestPiece {
 	 */
 	@Test
 	void testPiece() {
-		assertThrows(IllegalArgumentException.class, ()-> new Piece(5, 0, false, null));
-		assertThrows(IllegalArgumentException.class, ()-> new Piece(5, 0, false, "fze"));
+		assertThrows(IllegalArgumentException.class, ()-> new Piece(5, 0, true, null));
+		assertThrows(IllegalArgumentException.class, ()-> new Piece(5, 0, true, "fze"));
 		assertThrows(IllegalArgumentException.class, ()-> new Piece(5, 0, false, "85ax"));
-		assertThrows(IllegalArgumentException.class, ()-> new Piece(5, 0, false, "noir2"));
+		assertThrows(IllegalArgumentException.class, ()-> new Piece(5, 0, true, "noir2"));
 		assertThrows(IllegalArgumentException.class, ()-> new Piece(5, 1, false, "noir"));
-		assertThrows(IllegalArgumentException.class, ()-> new Piece(9, 9, false, "noir"));
-		assertThrows(IllegalArgumentException.class, ()-> new Piece(0, 0, false, "blanc"));
+		assertThrows(IllegalArgumentException.class, ()-> new Piece(9, 9, true, "noir"));
+		assertThrows(IllegalArgumentException.class, ()-> new Piece(0, 0, true, "blanc"));
 		assertThrows(IllegalArgumentException.class, ()-> new Piece(59, 0, false, "noir"));
 		assertThrows(IllegalArgumentException.class, ()-> new Piece(4, 19, false, "noir"));
-		assertThrows(IllegalArgumentException.class, ()-> new Piece(45, 18, false, "noir"));
+		assertThrows(IllegalArgumentException.class, ()-> new Piece(45, 18, true, "noir"));
+		assertThrows(IllegalArgumentException.class, ()-> new Piece(-1, 0, true, "noir"));
+		assertThrows(IllegalArgumentException.class, ()-> new Piece(5, -15, true, "noir"));
+		assertThrows(IllegalArgumentException.class, ()-> new Piece(-45, -18, true, "noir"));
 		assertDoesNotThrow(()-> new Piece(1, 0, false, "noir"));
+		assertDoesNotThrow(()-> new Piece(0, 1, true, "noir"));
+		assertDoesNotThrow(()-> new Piece(9, 8, false, "noir"));
+		assertDoesNotThrow(()-> new Piece(8, 9, false, "noir"));
+		assertDoesNotThrow(()-> new Piece(9, 0, true, "noir"));
+		assertDoesNotThrow(()-> new Piece(0, 9, true, "noir"));
+		assertDoesNotThrow(()-> new Piece(8, 1, false, "noir"));
+		assertDoesNotThrow(()-> new Piece(1, 8, true, "noir"));
 	}
 
 	/**
@@ -39,9 +50,12 @@ class TestPiece {
 	 */
 	@Test
 	void testGetX() {
-		assertEquals(4, new Piece(4, 1, false, "noir").getX());
-		assertEquals(0, new Piece(0, 9, false, "noir").getX());
-		assertEquals(9, new Piece(9, 0, false, "noir").getX());
+		assertEquals(4, new Piece(4, 5, false, "noir").getX());
+		assertEquals(0, new Piece(0, 9, true, "noir").getX());
+		assertEquals(9, new Piece(9, 0, true, "noir").getX());
+		assertNotEquals(5, new Piece(4, 5, true, "noir").getX());
+		assertNotEquals(9, new Piece(0, 9, false, "noir").getX());
+		assertNotEquals(0, new Piece(9, 0, true, "noir").getX());
 	}
 
 	/**
@@ -49,7 +63,12 @@ class TestPiece {
 	 */
 	@Test
 	void testSetX() {
-		fail("Not yet implemented");
+		assertThrows(IllegalArgumentException.class, ()-> new Piece(4, 5, true, "noir").setX(5));
+		assertThrows(IllegalArgumentException.class, ()-> new Piece(4, 5, false, "noir").setX(10));
+		assertThrows(IllegalArgumentException.class, ()-> new Piece(4, 5, false, "noir").setX(-1));
+		assertDoesNotThrow(()-> new Piece(4, 5, false, "noir").setX(2));
+		assertDoesNotThrow(()-> new Piece(4, 5, true, "noir").setX(0));
+		assertDoesNotThrow(()-> new Piece(5, 4, true, "noir").setX(9));
 	}
 
 	/**
@@ -57,7 +76,12 @@ class TestPiece {
 	 */
 	@Test
 	void testGetY() {
-		fail("Not yet implemented");
+		assertEquals(5, new Piece(4, 5, false, "noir").getY());
+		assertEquals(9, new Piece(0, 9, false, "noir").getY());
+		assertEquals(0, new Piece(9, 0, false, "noir").getY());
+		assertNotEquals(4, new Piece(4, 5, false, "noir").getY());
+		assertNotEquals(0, new Piece(0, 9, false, "noir").getY());
+		assertNotEquals(9, new Piece(9, 0, false, "noir").getY());
 	}
 
 	/**
