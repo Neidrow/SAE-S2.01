@@ -1,7 +1,25 @@
 package modele;
 
+import java.util.Scanner;
+
+import controleur.Parametre;
+
 public class GestionUtilisateur {
-    public void nomUtilisateur() {
-        // Permettre à l’utilisateur d'inscrire son nom et prendre en compte l’action
+
+    private Scanner scanner;
+
+    public GestionUtilisateur() {
+        scanner = new Scanner(System.in);
+    }
+
+    public String nomUtilisateur() {
+        System.out.print("Entrez votre nom d'utilisateur : ");
+        String nom = scanner.nextLine();
+        return nom;
+    }
+
+    public void allerDansParametre() {
+        Parametre parametre = new Parametre();
+        parametre.gestionParametres();
     }
 }

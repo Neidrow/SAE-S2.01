@@ -3,65 +3,63 @@ package modele;
 import java.io.*;
 
 public class GestionJeu {
-    private Jeu jeuEnCours;
-    private boolean partieSauvegardee;
+    private LogiqueJeu logiqueJeu;
+    private String etatPartie;
+
+    public GestionJeu() {
+        logiqueJeu = new LogiqueJeu();
+    }
 
     public void commencerJeu() {
-        jeuEnCours = new Jeu();
-        partieSauvegardee = false;
+        // Démarrer une nouvelle partie
+        System.out.println("Nouvelle partie commencée.");
+        logiqueJeu.initialiserJeu();
     }
 
     public void chargerPartieSauvegardee(String nomFichier) {
-        try {
-            FileInputStream fileIn = new FileInputStream(nomFichier);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            jeuEnCours = (Jeu) in.readObject();
-            in.close();
-            fileIn.close();
-            partieSauvegardee = true;
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        // Charger une partie à partir d'un fichier spécifié
+        try (BufferedReader br = new BufferedReader(new FileReader(nomFichier))) {
+            etatPartie = br.readLine();
+            System.out.println("Partie chargée depuis " + nomFichier);
+            logiqueJeu.chargerEtat(etatPartie);
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la partie: " + e.getMessage());
         }
     }
 
     public void quitterJeu() {
-        if (partieSauvegardee) {
-            supprimerPartieSauvegardee("partie.sav");
-        }
+        // Quitter le jeu
+        System.out.println("Le jeu est quitté.");
         System.exit(0);
     }
 
     public void confirmer() {
-        if (partieSauvegardee) {
-            supprimerPartieSauvegardee("partie.sav");
-        }
-        sauvegarderPartie("partie.sav");
+        // Confirmer une action
+        System.out.println("Action confirmée.");
     }
 
     public void annuler() {
-    if (jeuEnCours != null) {
-        jeuEnCours.annulerDernierCoup();
+        // Annuler une action
+        System.out.println("Action annulée.");
     }
-}
 
     public void supprimerPartieSauvegardee(String nomFichier) {
+        // Supprimer une partie sauvegardée spécifique
         File fichier = new File(nomFichier);
-        if (fichier.exists()) {
-            fichier.delete();
-            partieSauvegardee = false;
+        if (fichier.delete()) {
+            System.out.println("La partie " + nomFichier + " a été supprimée.");
+        } else {
+            System.out.println("Erreur lors de la suppression de la partie.");
         }
     }
 
-    private void sauvegarderPartie(String nomFichier) {
-        try {
-            FileOutputStream fileOut = new FileOutputStream(nomFichier);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(jeuEnCours);
-            out.close();
-            fileOut.close();
-            partieSauvegardee = true;
+    public void sauvegarderPartie(String nomFichier) {
+        // Sauvegarder l'état actuel du jeu dans un fichier
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(nomFichier))) {
+            bw.write(logiqueJeu.obtenirEtat());
+            System.out.println("Partie sauvegardée dans " + nomFichier);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Erreur lors de la sauvegarde de la partie: " + e.getMessage());
         }
     }
 }

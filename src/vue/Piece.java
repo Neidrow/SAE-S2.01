@@ -1,5 +1,10 @@
 package vue;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import controleur.Mouvement;
+
 /**
  * La classe Piece représente un pion dans le jeu.
  */
@@ -95,4 +100,30 @@ public class Piece {
     public void setProprietaire(String proprietaire) {
         this.proprietaire = proprietaire;
     }
+
+    /**
+     * Obtient les mouvements possibles pour cette pièce.
+     *
+     * @return Une liste des mouvements possibles.
+     */
+
+    public List<Mouvement> getMouvementsPossibles() {
+        List<Mouvement> mouvementsPossibles = new ArrayList<>();
+
+        // Si la pièce est une dame, elle peut se déplacer dans n'importe quelle direction
+        if (isDame) {
+            mouvementsPossibles.add(new Mouvement(x + 1, y + 1)); // Déplacement diagonale bas droite
+            mouvementsPossibles.add(new Mouvement(x + 1, y - 1)); // Déplacement diagonale bas gauche
+            mouvementsPossibles.add(new Mouvement(x - 1, y + 1)); // Déplacement diagonale haut droite
+            mouvementsPossibles.add(new Mouvement(x - 1, y - 1)); // Déplacement diagonale haut gauche
+        } else {
+            // Sinon, la pièce ne peut se déplacer que vers le haut ou vers le bas en diagonale, selon le propriétaire
+            int direction = (proprietaire.equals("blanc")) ? 1 : -1;
+            mouvementsPossibles.add(new Mouvement(x + direction, y + 1)); // Déplacement diagonale bas
+            mouvementsPossibles.add(new Mouvement(x + direction, y - 1)); // Déplacement diagonale haut
+        }
+
+        return mouvementsPossibles;
+    }
+    
 }
