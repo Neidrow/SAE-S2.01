@@ -24,8 +24,8 @@ public class Piece {
     public static final int CASE_MIN_PLATEAU = 0;
 
     /**
-     * Constructeur pour initialiser un pion avec ses coordonnées, 
-     * son type et son propriétaire.
+     * initialise un pion avec ses coordonnées, son type et son 
+     * propriétaire.
      *
      * @param x           La coordonnée horizontale du pion (0<=x<=9)
      * @param y           La coordonnée verticale du pion (0<=y<=9)

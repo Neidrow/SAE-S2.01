@@ -13,7 +13,7 @@ import vue.Piece;
 
 /**
  * TODO commenter
- * @author Adrien Vigué
+ * @author Groupe 41
  */
 class TestPiece {
 
