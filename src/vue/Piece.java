@@ -1,7 +1,14 @@
+/*
+ * Piece.java				24/05/24
+ * IUT de Rodez, pas de copyright
+ */
+
 package vue;
 
 /**
- * La classe Piece représente un pion dans le jeu.
+ * créé et représente un pion dans le jeu, tout en pouvant changer
+ * son état au cour de la partie.
+ * @author groupe41
  */
 public class Piece {
     
@@ -43,7 +50,7 @@ public class Piece {
     		throw new IllegalArgumentException("Le pion est placé sur une "
     				                        + "case blanche !");
     	} else if (x < CASE_MIN_PLATEAU || y < CASE_MIN_PLATEAU 
-    	    || x > CASE_MAX_PLATEAU || y > CASE_MAX_PLATEAU) {
+    	           || x > CASE_MAX_PLATEAU || y > CASE_MAX_PLATEAU) {
     		throw new IllegalArgumentException("Le pion n'est pas sur le"
     				                                 + " damier !");
     	}
@@ -97,8 +104,21 @@ public class Piece {
      * Définit la coordonnée y du pion.
      *
      * @param y La nouvelle coordonnée y du pion.
+     * @throws IllegalArgumentException si :
+     * <ul>
+     *         <li> le pion est placé sur une case blanche 
+     *              ( détectable si x+y est pair ) </li>
+     *         <li> x est supérieur à 9 ou inférieur à 0 </li>
+     * </ul>
      */
     public void setY(int y) {
+    	if ((x+y)%2 != 1) {
+    		throw new IllegalArgumentException("Le pion est placé sur une "
+    				                        + "case blanche !");
+    	} else if (y < CASE_MIN_PLATEAU || y > CASE_MAX_PLATEAU ) {
+        		throw new IllegalArgumentException("Le pion n'est pas sur le"
+        				                                 + " damier !");
+        }
         this.y = y;
     }
 
@@ -127,14 +147,5 @@ public class Piece {
      */
     public String getProprietaire() {
         return proprietaire;
-    }
-
-    /**
-     * Définit le nom du propriétaire du pion.
-     *
-     * @param proprietaire Le nouveau nom du propriétaire du pion.
-     */
-    public void setProprietaire(String proprietaire) {
-        this.proprietaire = proprietaire;
     }
 }

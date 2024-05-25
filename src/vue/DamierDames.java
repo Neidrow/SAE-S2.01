@@ -36,7 +36,7 @@ public class DamierDames extends Application {
             }
         }
 
-        Scene scene = new Scene(grid, 800, 1000);
+        Scene scene = new Scene(grid, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
