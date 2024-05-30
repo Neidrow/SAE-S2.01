@@ -3,11 +3,13 @@ package vue;
 import java.awt.Label;
 
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -18,10 +20,13 @@ public class Ui {
     private Label labelChronometre;
     private int minutes = 10;
     private int seconds = 0;
+    private GridPane grid; // Ajout du champ GridPane
 
     public Ui() {
         this.plateau = new char[SIZE][SIZE]; // Initialise un plateau vide pour l'exemple
         initialiserPlateau();
+        this.labelMessage = new Label(); // Initialisation du labelMessage
+        this.labelChronometre = new Label(); // Initialisation du labelChronometre
     }
 
     public void initialiserPlateau() {
@@ -49,12 +54,13 @@ public class Ui {
         Button btnNouvellePartie = new Button("Nouvelle Partie");
         btnNouvellePartie.setOnAction(e -> {
             message("Nouvelle partie commencée.");
-            initialiserPlateau();
-            rafraichirPlateau();
 
             // Remplacer le contenu de la scène par l'écran de jeu
             BorderPane ecranJeu = creerEcranJeu();
-            root.setCenter(ecranJeu);
+            root.setCenter(ecranJeu); // Ajoutez l'écran de jeu à la racine BorderPane
+
+            // Ajouter la création du plateau avec les pions
+            creerPlateau();
         });
 
         Button btnQuitter = new Button("Quitter");
@@ -66,24 +72,26 @@ public class Ui {
         return root;
     }
 
+
     private BorderPane creerEcranJeu() {
         BorderPane ecranJeu = new BorderPane();
 
+        // Initialisation de la grille
+        if (grid == null) {
+            grid = new GridPane();
+            grid.setAlignment(Pos.CENTER); // Centrer le plateau horizontalement et verticalement
+        }
+        ecranJeu.setCenter(grid);
+
         // Création du plateau de jeu
-        GridPane plateauJeu = creerPlateau();
-        plateauJeu.setAlignment(Pos.CENTER); // Centrer le plateau horizontalement et verticalement
-        ecranJeu.setCenter(plateauJeu);
+        creerPlateau();
 
         // Autres éléments à ajouter à l'écran de jeu si nécessaire
 
         return ecranJeu;
     }
 
-    private GridPane creerPlateau() {
-        GridPane grid = new GridPane(); // Ici, j'ai déclaré la variable grid
-        grid.setHgap(1);
-        grid.setVgap(1);
-
+    private void creerPlateau() {
         // Création de la grille
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
@@ -96,8 +104,22 @@ public class Ui {
                 grid.add(cell, col, row);
             }
         }
-        return grid;
+
+        // Ajout des pions après les rectangles
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                if (plateau[row][col] == 'N') {
+                    afficherPion(row, col, "noir");
+                } else if (plateau[row][col] == 'B') {
+                    afficherPion(row, col, "blanc");
+                }
+            }
+        }
     }
+
+
+
+
 
     public static void thèmeClassique(GridPane grid) {
         System.out.println("Thème classique sélectionné.");
@@ -148,10 +170,46 @@ public class Ui {
         }
     }
     private void rafraichirPlateau() {
-        // Actualisation du plateau de jeu si nécessaire
+        // Actualiser la représentation visuelle du plateau de jeu en fonction de l'état actuel du plateau
+
+        // Parcourir le plateau et mettre à jour chaque case dans la représentation visuelle
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                Node node = grid.getChildren().get(row * SIZE + col);
+                if (node instanceof Rectangle) {
+                    Rectangle cell = (Rectangle) node;
+                    switch (plateau[row][col]) {
+                        case 'N':
+                            // Mettre à jour la case avec la couleur ou le symbole représentant un pion noir
+                            // Par exemple, changer la couleur de la case en noir ou afficher un cercle noir
+                            cell.setFill(Color.BLACK);
+                            break;
+                        case 'B':
+                            // Mettre à jour la case avec la couleur ou le symbole représentant un pion blanc
+                            // Par exemple, changer la couleur de la case en blanc ou afficher un cercle blanc
+                            cell.setFill(Color.WHITE);
+                            break;
+                        default:
+                            // Mettre à jour la case pour qu'elle soit vide
+                            // Par exemple, changer la couleur de la case en gris
+                            cell.setFill(Color.GRAY);
+                            break;
+                    }
+                }
+            }
+        }
     }
+
+    public void afficherPion(int x, int y, String couleur) {
+        Circle pion = new Circle(20); // Créez un cercle pour représenter le pion
+        pion.setFill(couleur.equals("noir") ? Color.BLUE : Color.BLACK); // Couleur du pion en fonction du propriétaire
+        grid.add(pion, y, x); // Ajoutez le pion à la position spécifiée sur le plateau de jeu
+    }
+
+
 
     private void message(String message) {
         // Affichage des messages sur l'écran si nécessaire
+        labelMessage.setText(message);
     }
 }

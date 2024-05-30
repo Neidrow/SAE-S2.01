@@ -1,7 +1,7 @@
 package modele;
 
 public class LogiqueJeu {
-    private char[][] plateau;
+    private static char[][] plateau;
 
     public LogiqueJeu() {
         initialiserJeu();
@@ -61,7 +61,7 @@ public class LogiqueJeu {
         return false;
     }
 
-    public boolean verificationVictoire() {
+    public static boolean verificationVictoire() {
         // Vérifier les conditions de victoire
         boolean blancPresent = false;
         boolean noirPresent = false;
