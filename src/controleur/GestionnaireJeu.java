@@ -29,27 +29,27 @@ public class GestionnaireJeu {
      * Cette méthode initialise une nouvelle partie avec les paramètres par défaut et met à jour l'interface graphique en conséquence.
      */
     public void initialiserPartie() {
-    	int x = 1;
-    	int y = 0;
+    	int y = 1;
+    	int x = 0;
     	String proprietaire = "noir";
     	boolean isDame = false; 
         for(int i = 0; i >= 20; i++) {	
         	new Piece(x, y, isDame, proprietaire);
-        	x += 2;
-        	if (x >= 10) {
-        		x -= 11;
-        		y++;
+        	y += 2;
+        	if (y >= 10) {
+        		y -= 11;
+        		x++;
         	}
         }
-        x = 1;
-        y = 9;
+        y = 1;
+        x = 8;
         proprietaire = "blanc";
         for(int i = 0; i >= 20; i++) {	
         	new Piece(x, y, isDame, proprietaire);
-        	x += 2;
-        	if (x >= 10) {
-        		x -= 11;
-        		y++;
+        	y += 2;
+        	if (y >= 10) {
+        		y -= 11;
+        		x++;
         	}
         }
     }

@@ -35,7 +35,7 @@ public class Piece {
      *                                                     soit noir.
      * @throws IllegalArgumentException si :
      * <ul>
-     * 		   <li> le propriétaire s'il n'est pas égal à blanc ou 
+     * 		   <li> le propriétaire n'est pas égal à blanc ou 
      *              noir </li>
      *         <li> le pion est placé sur une case blanche 
      *              ( détectable si x+y est pair ) </li>
