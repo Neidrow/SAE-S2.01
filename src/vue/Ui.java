@@ -1,7 +1,8 @@
 package vue;
 
 import java.awt.Label;
-
+import java.util.List;
+import controleur.Mouvement;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import modele.LogiqueJeu;
 
 public class Ui {
     private static final int SIZE = 10; // Taille de la grille
@@ -21,6 +23,9 @@ public class Ui {
     private int minutes = 10;
     private int seconds = 0;
     private GridPane grid; // Ajout du champ GridPane
+    private int selectedX = -1;
+    private int selectedY = -1;
+    private Circle selectedPion = null; // Ajout d'un champ pour le pion sélectionné
 
     public Ui() {
         this.plateau = new char[SIZE][SIZE]; // Initialise un plateau vide pour l'exemple
@@ -29,6 +34,7 @@ public class Ui {
         this.labelChronometre = new Label(); // Initialisation du labelChronometre
     }
 
+    // TODO A changer par du FXML
     public void initialiserPlateau() {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -43,6 +49,7 @@ public class Ui {
         }
     }
 
+    // TODO fxml
     public BorderPane creerContenu(Stage primaryStage) {
         BorderPane root = new BorderPane();
 
@@ -71,7 +78,6 @@ public class Ui {
 
         return root;
     }
-
 
     private BorderPane creerEcranJeu() {
         BorderPane ecranJeu = new BorderPane();
@@ -109,22 +115,38 @@ public class Ui {
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 if (plateau[row][col] == 'N') {
-                    afficherPion(row, col, "noir");
+                    Circle pion = afficherPion(row, col, "noir");
+                    evenementPions(pion, row, col);
                 } else if (plateau[row][col] == 'B') {
-                    afficherPion(row, col, "blanc");
+                    Circle pion = afficherPion(row, col, "blanc");
+                    evenementPions(pion, row, col);
                 }
             }
         }
     }
 
-
-
-
+    // Méthode pour afficher visuellement les mouvements possibles pour l'utilisateur
+    public void afficherMouvementsPossibles(List<Mouvement> mouvementsPossibles) {
+        if (mouvementsPossibles != null) { // Vérifiez si la liste est null
+            for (Mouvement mouvement : mouvementsPossibles) {
+                int x = mouvement.getX();
+                int y = mouvement.getY();
+                // Mettez en surbrillance visuellement la case pour indiquer le mouvement possible
+                Rectangle cell = (Rectangle) grid.getChildren().get(x * SIZE + y);
+                cell.setFill(Color.LIGHTGREEN); // Changez la couleur de fond de la case en vert clair
+                // Ajoutez un gestionnaire d'événements de clic à la case pour permettre le déplacement
+                cell.setOnMouseClicked(event -> {
+                    int newX = GridPane.getRowIndex(cell);
+                    int newY = GridPane.getColumnIndex(cell);
+                    LogiqueJeu.mouvement(selectedX, selectedY, newX, newY);
+                    rafraichirPlateau();
+                });
+            }
+        }
+    }
 
     public static void thèmeClassique(GridPane grid) {
         System.out.println("Thème classique sélectionné.");
-
-        // Parcours de toutes les cases du plateau
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 Rectangle cell = (Rectangle) grid.getChildren().get(row * SIZE + col);
@@ -137,79 +159,88 @@ public class Ui {
         }
     }
 
-    // Méthode pour changer le thème vers le thème sombre (noir et gris)
-    public  void thèmeSombre(GridPane grid) {
+    public void thèmeSombre(GridPane grid) {
         System.out.println("Thème sombre sélectionné.");
-
-        // Parcours de toutes les cases du plateau
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 Rectangle cell = (Rectangle) grid.getChildren().get(row * SIZE + col);
                 if ((row + col) % 2 == 0) {
                     cell.setFill(Color.BLACK);
                 } else {
-                    cell.setFill(Color.DARKGRAY); // Vous pouvez ajuster la teinte de gris selon vos préférences
+                    cell.setFill(Color.DARKGRAY);
                 }
             }
         }
     }
 
-    // Méthode pour changer le thème vers le thème clair (blanc et gris)
     public void thèmeClair(GridPane grid) {
         System.out.println("Thème clair sélectionné.");
-        // Implémentez ici le changement de thème pour le thème clair (blanc et gris)
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 Rectangle cell = (Rectangle) grid.getChildren().get(row * SIZE + col);
                 if ((row + col) % 2 == 0) {
                     cell.setFill(Color.WHITE);
                 } else {
-                    cell.setFill(Color.LIGHTGRAY); // Vous pouvez ajuster la teinte de gris selon vos préférences
+                    cell.setFill(Color.LIGHTGRAY);
                 }
             }
         }
     }
-    private void rafraichirPlateau() {
-        // Actualiser la représentation visuelle du plateau de jeu en fonction de l'état actuel du plateau
 
-        // Parcourir le plateau et mettre à jour chaque case dans la représentation visuelle
+    private void rafraichirPlateau() {
+        grid.getChildren().clear(); // Vider la grille avant de recréer les éléments
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
-                Node node = grid.getChildren().get(row * SIZE + col);
-                if (node instanceof Rectangle) {
-                    Rectangle cell = (Rectangle) node;
-                    switch (plateau[row][col]) {
-                        case 'N':
-                            // Mettre à jour la case avec la couleur ou le symbole représentant un pion noir
-                            // Par exemple, changer la couleur de la case en noir ou afficher un cercle noir
-                            cell.setFill(Color.BLACK);
-                            break;
-                        case 'B':
-                            // Mettre à jour la case avec la couleur ou le symbole représentant un pion blanc
-                            // Par exemple, changer la couleur de la case en blanc ou afficher un cercle blanc
-                            cell.setFill(Color.WHITE);
-                            break;
-                        default:
-                            // Mettre à jour la case pour qu'elle soit vide
-                            // Par exemple, changer la couleur de la case en gris
-                            cell.setFill(Color.GRAY);
-                            break;
-                    }
+                Rectangle cell = new Rectangle(50, 50);
+                if ((row + col) % 2 == 0) {
+                    cell.setFill(Color.WHITE);
+                } else {
+                    cell.setFill(Color.BLACK);
+                }
+                grid.add(cell, col, row);
+                if (plateau[row][col] == 'N') {
+                    Circle pion = afficherPion(row, col, "noir");
+                    evenementPions(pion, row, col);
+                } else if (plateau[row][col] == 'B') {
+                    Circle pion = afficherPion(row, col, "blanc");
+                    evenementPions(pion, row, col);
                 }
             }
         }
     }
 
-    public void afficherPion(int x, int y, String couleur) {
+    public Circle afficherPion(int x, int y, String couleur) {
         Circle pion = new Circle(20); // Créez un cercle pour représenter le pion
-        pion.setFill(couleur.equals("noir") ? Color.BLUE : Color.BLACK); // Couleur du pion en fonction du propriétaire
+        pion.setFill(couleur.equals("noir") ? Color.BLACK : Color.WHITE); // Couleur du pion en fonction du propriétaire
+        pion.setStroke(Color.GRAY); // Bordure grise
+        pion.setStrokeWidth(3);
         grid.add(pion, y, x); // Ajoutez le pion à la position spécifiée sur le plateau de jeu
+        return pion;
     }
 
-
+    public void evenementPions(Circle pion, int x, int y) {
+        pion.setOnMouseClicked(event -> {
+            if (selectedX == x && selectedY == y) {
+                // Si le pion sélectionné est cliqué à nouveau, désélectionner
+                selectedX = -1;
+                selectedY = -1;
+                selectedPion.setStroke(Color.GRAY); // Restaurer la bordure grise
+                selectedPion = null;
+            } else {
+                // Si un autre pion est déjà sélectionné, désélectionner l'ancien
+                if (selectedPion != null) {
+                    selectedPion.setStroke(Color.GRAY); // Restaurer la bordure grise de l'ancien pion
+                }
+                // Sélectionner le nouveau pion
+                selectedX = x;
+                selectedY = y;
+                selectedPion = pion;
+                pion.setStroke(Color.RED); // Indiquer la sélection en changeant la bordure
+            }
+        });
+    }
 
     private void message(String message) {
-        // Affichage des messages sur l'écran si nécessaire
         labelMessage.setText(message);
     }
 }

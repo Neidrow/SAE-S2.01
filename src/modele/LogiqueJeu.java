@@ -24,7 +24,7 @@ public class LogiqueJeu {
         System.out.println("Jeu initialisé.");
     }
 
-    public void mouvement(int x1, int y1, int x2, int y2) {
+    public static void mouvement(int x1, int y1, int x2, int y2) {
         // Permettre le mouvement d’un pion par le joueur
         if (verificationMouvement(x1, y1, x2, y2)) {
             plateau[x2][y2] = plateau[x1][y1];
@@ -35,9 +35,12 @@ public class LogiqueJeu {
         }
     }
 
-    public boolean verificationMouvement(int x1, int y1, int x2, int y2) {
+    public static boolean verificationMouvement(int x1, int y1, int x2, int y2) {
         // Vérifier qu’un utilisateur peut faire un coup
-        if (x2 < 0 || x2 >= 10 || y2 < 0 || y2 >= 10 || plateau[x2][y2] != ' ') {
+        if (plateau == null) {
+            throw new IllegalStateException("Le plateau n'est pas initialisé.");
+        }
+        if (x2 < 0 || x2 > 10 || y2 < 0 || y2 > 10 || plateau[x2][y2] != ' ') {
             return false;
         }
 
