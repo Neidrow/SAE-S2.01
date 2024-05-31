@@ -32,6 +32,8 @@ public class Ui {
 		initialiserPlateau();
 		this.labelMessage = new Label(); // Initialisation du labelMessage
 		this.labelChronometre = new Label(); // Initialisation du labelChronometre
+		LogiqueJeu jeu = new LogiqueJeu(); // Créez une instance de LogiqueJeu
+		jeu.initialiserJeu(); // Initialisez le jeu
 	}
 
 	// TODO A changer par du FXML
@@ -127,11 +129,25 @@ public class Ui {
 	public void deplacerPion(int newX, int newY) {
 	    // Vérifiez si un pion est sélectionné
 	    if (selectedX != -1 && selectedY != -1) {
-	        // Déplacez le pion sélectionné vers la nouvelle position (newX, newY)
-	        plateau[newX][newY] = plateau[selectedX][selectedY];
-	        plateau[selectedX][selectedY] = ' '; // Videz l'ancienne position du pion
-	        // Mettez à jour l'affichage du plateau
-	        rafraichirPlateau();
+	        char pion = plateau[selectedX][selectedY];
+	        int direction = (pion == 'N') ? 1 : -1; // Direction de déplacement selon le propriétaire du pion
+
+	        // Vérifiez si le déplacement est valide
+	        if ((newX - selectedX) == direction && Math.abs(newY - selectedY) == 1) {
+	            // Déplacez le pion sélectionné vers la nouvelle position (newX, newY)
+	            plateau[newX][newY] = plateau[selectedX][selectedY];
+	            plateau[selectedX][selectedY] = ' '; // Videz l'ancienne position du pion
+	            
+	            // Vérifiez s'il y a un pion à capturer
+	            if (!LogiqueJeu.mangerPion(selectedX, selectedY, newX, newY)) {
+	                // Mettez à jour l'affichage du plateau si aucune capture n'a eu lieu
+	                rafraichirPlateau();
+	            } else {
+	                // Mettez à jour l'affichage du plateau après la capture
+	                rafraichirPlateau();
+	            }
+	        }
+
 	        // Désélectionnez le pion après le déplacement
 	        selectedX = -1;
 	        selectedY = -1;
@@ -139,6 +155,7 @@ public class Ui {
 	        selectedPion = null;
 	    }
 	}
+
 
 	public void evenementPions(Circle pion, int x, int y) {
 	    pion.setOnMouseClicked(event -> {
@@ -167,15 +184,33 @@ public class Ui {
 	            selectedPion.setStroke(Color.GRAY); // Restaurer la bordure grise
 	            selectedPion = null;
 	        } else {
-	            // Sinon, désélectionnez le pion précédemment sélectionné et sélectionnez le nouveau
-	            selectedPion.setStroke(Color.GRAY); // Restaurer la bordure grise de l'ancien pion
-	            selectedX = x;
-	            selectedY = y;
-	            selectedPion = pion;
-	            pion.setStroke(Color.RED); // Indiquer la sélection en changeant la bordure
+	            // Sinon, vérifiez si la case cliquée est adjacente au pion mangeable
+	            int midX = (selectedX + x) / 2;
+	            int midY = (selectedY + y) / 2;
+	            if (LogiqueJeu.mangerPion(selectedX, selectedY, midX, midY)) {
+	                // Si oui, déplacez automatiquement le pion mangeable et sélectionnez le nouveau
+	                deplacerPion(midX, midY);
+	                selectedX = x;
+	                selectedY = y;
+	                selectedPion = pion;
+	                pion.setStroke(Color.RED); // Indiquer la sélection en changeant la bordure
+	            } else {
+	                // Sinon, désélectionnez le pion précédemment sélectionné et sélectionnez le nouveau
+	                selectedPion.setStroke(Color.GRAY); // Restaurer la bordure grise de l'ancien pion
+	                selectedX = x;
+	                selectedY = y;
+	                selectedPion = pion;
+	                pion.setStroke(Color.RED); // Indiquer la sélection en changeant la bordure
+	            }
 	        }
 	    });
 	}
+
+
+
+
+
+
 
 
 	public void afficherMouvementsPossibles(List<Mouvement> mouvementsPossibles) {

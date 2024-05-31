@@ -63,6 +63,26 @@ public class LogiqueJeu {
         }
         return false;
     }
+    public static boolean mangerPion(int x1, int y1, int x2, int y2) {
+        // Vérifier qu'un joueur peut manger un pion de l'adversaire
+        if (verificationMouvement(x1, y1, x2, y2)) {
+            int midX = (x1 + x2) / 2;
+            int midY = (y1 + y2) / 2;
+            char pion = plateau[x1][y1];
+            char ennemi = (pion == 'B') ? 'N' : 'B';
+            if (plateau[midX][midY] == ennemi && plateau[x2][y2] == ' ') {
+                // Effectuer la capture
+                plateau[x2][y2] = plateau[x1][y1];
+                plateau[x1][y1] = ' ';
+                plateau[midX][midY] = ' ';
+                System.out.println("Pion " + ennemi + " capturé.");
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     public static boolean verificationVictoire() {
         // Vérifier les conditions de victoire
