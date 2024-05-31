@@ -153,24 +153,6 @@ public class Piece {
     }
 
     /**
-     * Obtient le nom du propriétaire du pion.
-     *
-     * @return Le nom du propriétaire du pion.
-     */
-    public String getProprietaire() {
-        return proprietaire;
-    }
-
-    /**
-     * Définit le nom du propriétaire du pion.
-     *
-     * @param proprietaire Le nouveau nom du propriétaire du pion.
-     */
-    public void setProprietaire(String proprietaire) {
-        this.proprietaire = proprietaire;
-    }
-
-    /**
      * Obtient les mouvements possibles pour cette pièce.
      *
      * @return Une liste des mouvements possibles.

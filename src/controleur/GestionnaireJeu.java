@@ -2,7 +2,7 @@ package controleur;
 
 import java.util.List;
 
-import modele.GestionJeu;
+import modele.Jeu;
 import modele.LogiqueJeu;
 import modele.Piece;
 
@@ -10,10 +10,10 @@ import modele.Piece;
  * La classe Controleur gère les interactions entre l'interface utilisateur et le modèle de jeu.
  */
 public class GestionnaireJeu {
-    private GestionJeu gestionJeu; // Référence vers le modèle
+    private Jeu gestionJeu; // Référence vers le modèle
 
     public GestionnaireJeu() {
-        this.gestionJeu = new GestionJeu(); // Initialisation du modèle
+        this.gestionJeu = new Jeu(); // Initialisation du modèle
     }
 
     /**

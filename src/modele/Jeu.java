@@ -2,11 +2,11 @@ package modele;
 
 import java.io.*;
 
-public class GestionJeu {
+public class Jeu {
     private LogiqueJeu logiqueJeu;
     private String etatPartie;
 
-    public GestionJeu() {
+    public Jeu() {
         logiqueJeu = new LogiqueJeu();
     }
 

@@ -82,8 +82,6 @@ public class LogiqueJeu {
         return false;
     }
 
-
-
     public static boolean verificationVictoire() {
         // Vérifier les conditions de victoire
         boolean blancPresent = false;

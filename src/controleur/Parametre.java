@@ -1,7 +1,7 @@
 	package controleur;
 	
 	import java.util.Scanner;
-	import vue.Ui;
+	import vue.Plateau;
 	
 	public class Parametre {
 	
@@ -43,7 +43,7 @@
 	
 	    private void thèmeClassique() {
 	        System.out.println("Thème classique sélectionné.");
-	        Ui.thèmeClassique(null);
+	        Plateau.thèmeClassique(null);
 	    }
 	
 	    private void thèmeClair() {

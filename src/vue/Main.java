@@ -9,7 +9,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-            Ui ui = new Ui();
+            Plateau ui = new Plateau();
             BorderPane root = ui.creerContenu(primaryStage);
             Scene scene = new Scene(root, 1200, 1000);
             primaryStage.setScene(scene);

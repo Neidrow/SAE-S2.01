@@ -15,7 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import modele.LogiqueJeu;
 
-public class Ui {
+public class Plateau {
 	private static final int SIZE = 10; // Taille de la grille
 	private char[][] plateau;
 	private Label labelMessage;
@@ -27,7 +27,7 @@ public class Ui {
 	private int selectedY = -1;
 	private Circle selectedPion = null; // Ajout d'un champ pour le pion sélectionné
 
-	public Ui() {
+	public Plateau() {
 		this.plateau = new char[SIZE][SIZE]; // Initialise un plateau vide pour l'exemple
 		initialiserPlateau();
 		this.labelMessage = new Label(); // Initialisation du labelMessage
@@ -105,9 +105,9 @@ public class Ui {
 			for (int col = 0; col < SIZE; col++) {
 				Rectangle cell = new Rectangle(50, 50);
 				if ((row + col) % 2 == 0) {
-					cell.setFill(Color.WHITE);
-				} else {
 					cell.setFill(Color.BLACK);
+				} else {
+					cell.setFill(Color.WHITE);
 				}
 				grid.add(cell, col, row);
 			}
@@ -206,13 +206,6 @@ public class Ui {
 	    });
 	}
 
-
-
-
-
-
-
-
 	public void afficherMouvementsPossibles(List<Mouvement> mouvementsPossibles) {
 		// Afficher visuellement les mouvements possibles pour le pion sélectionné
 		if (mouvementsPossibles != null && selectedX != -1 && selectedY != -1) {
@@ -279,9 +272,9 @@ public class Ui {
 			for (int col = 0; col < SIZE; col++) {
 				Rectangle cell = new Rectangle(50, 50);
 				if ((row + col) % 2 == 0) {
-					cell.setFill(Color.WHITE);
-				} else {
 					cell.setFill(Color.BLACK);
+				} else {
+					cell.setFill(Color.WHITE);
 				}
 				grid.add(cell, col, row);
 				if (plateau[row][col] == 'N') {
@@ -303,7 +296,10 @@ public class Ui {
 		grid.add(pion, y, x); // Ajoutez le pion à la position spécifiée sur le plateau de jeu
 		return pion;
 	}
-
+	public void transformation() {
+        // Gérer le passage d’un pion en dame
+    }
+	
 	private void message(String message) {
 		labelMessage.setText(message);
 	}
