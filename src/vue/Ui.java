@@ -20,5 +20,15 @@ public class Ui {
 	public void afficherOptions() {
 		// Afficher les options disponibles dans l'interface
 	}
+	public static boolean transformation(String proprietaire, int x) {
+    	
+    	boolean transformationOk;
+    	
+        transformationOk = x == 9 && proprietaire == "noir";
+        if (!transformationOk) {
+        	transformationOk = x == 0 && proprietaire == "blanc";
+        }
+    	return transformationOk;
+    }
 }
 

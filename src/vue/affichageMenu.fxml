@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -10,8 +11,20 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" style="-fx-background-color: #823737; -fx-border-radius: 50px;" text="Nouvelle partie" textFill="#fffffe" />
-            <Button mnemonicParsing="false" style="-fx-background-color: #823737;" text="Quitter" textFill="#fffffe" />
+            <Button mnemonicParsing="false" style="-fx-background-color: #823737; -fx-border-radius: 50px;" text="Nouvelle partie" textFill="#fffffe">
+               <VBox.margin>
+                  <Insets left="85.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Comic Sans MS" size="20.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" style="-fx-background-color: #823737;" text="Quitter" textFill="#fffffe">
+               <VBox.margin>
+                  <Insets left="85.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Comic Sans MS" size="20.0" />
+               </font></Button>
          </children>
       </VBox>
    </center>
