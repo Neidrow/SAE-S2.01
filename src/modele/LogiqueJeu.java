@@ -40,7 +40,7 @@ public class LogiqueJeu {
         if (plateau == null) {
             throw new IllegalStateException("Le plateau n'est pas initialisé.");
         }
-        if (x2 < 0 || x2 > 10 || y2 < 0 || y2 > 10 || plateau[x2][y2] != ' ') {
+        if (x2 < 0 || x2 > 9 || y2 < 0 || y2 > 9 || plateau[x2][y2] != ' ') {
             return false;
         }
 

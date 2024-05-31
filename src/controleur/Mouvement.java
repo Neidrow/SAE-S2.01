@@ -35,5 +35,4 @@ public class Mouvement {
     public int getY() {
         return y;
     }
-    
 }

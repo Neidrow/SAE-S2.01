@@ -1,8 +1,10 @@
 package controleur;
 
-import vue.Piece;
+import java.util.List;
+
 import modele.GestionJeu;
 import modele.LogiqueJeu;
+import modele.Piece;
 
 /**
  * La classe Controleur gère les interactions entre l'interface utilisateur et le modèle de jeu.
@@ -64,6 +66,7 @@ public class GestionnaireJeu {
     public void lierEvenementsInterface() {
         // Lier les événements de l'interface utilisateur aux méthodes du modèle et de la vue
     }
+    
 
     /**
      * Cette méthode est appelée lorsque l'utilisateur clique sur une pièce sur le plateau de jeu.
@@ -71,7 +74,25 @@ public class GestionnaireJeu {
      *
      * @param piece La pièce sur laquelle l'utilisateur a cliqué.
      */
+    /**
+     * Cette méthode est appelée lorsque l'utilisateur clique sur une pièce sur le plateau de jeu.
+     * Elle détermine les mouvements possibles pour cette pièce et les affiche à l'utilisateur.
+     *
+     * @param piece La pièce sur laquelle l'utilisateur a cliqué.
+     */
     public void gererClicPiece(Piece piece) {
-        // Gérer le clic sur une pièce et afficher les mouvements possibles
+        // Obtenez les coordonnées de la pièce sur laquelle l'utilisateur a cliqué
+        int x = piece.getX();
+        int y = piece.getY();
+
+        // Obtenez les mouvements possibles pour cette pièce
+        List<Mouvement> mouvementsPossibles = piece.getMouvementsPossibles();
+
+        // Affichez les mouvements possibles à l'utilisateur ou effectuez d'autres actions en fonction de vos besoins
+        for (Mouvement mouvement : mouvementsPossibles) {
+            int newX = mouvement.getX();
+            int newY = mouvement.getY();
+            System.out.println("Mouvement possible de (" + x + "," + y + ") à (" + newX + "," + newY + ")");
+        }
     }
 }

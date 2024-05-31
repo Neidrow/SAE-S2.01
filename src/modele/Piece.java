@@ -3,7 +3,7 @@
  * IUT de Rodez, pas de copyright
  */
 
-package vue;
+package modele;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -194,10 +194,4 @@ public class Piece {
 
         return mouvementsPossibles;
     }
-
-	public static List<Mouvement> getMouvementsPossibles(int x1, int y1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    
 }
