@@ -53,10 +53,10 @@ public class Jeu {
         }
     }
 
-    public void sauvegarderPartie(String nomFichier) {
+    public static void sauvegarderPartie(String nomFichier) {
         // Sauvegarder l'état actuel du jeu dans un fichier
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(nomFichier))) {
-            bw.write(logiqueJeu.obtenirEtat());
+            bw.write(LogiqueJeu.obtenirEtat());
             System.out.println("Partie sauvegardée dans " + nomFichier);
         } catch (IOException e) {
             System.err.println("Erreur lors de la sauvegarde de la partie: " + e.getMessage());

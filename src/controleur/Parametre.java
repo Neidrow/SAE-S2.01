@@ -14,6 +14,7 @@
 	    public void regles() {
 	        // Afficher les règles
 	        System.out.println("Voici les règles du jeu.");
+	        //TODO mettre un lien vers les regles
 	    }
 	
 	    public void modifierTheme() {
@@ -43,23 +44,23 @@
 	
 	    private void thèmeClassique() {
 	        System.out.println("Thème classique sélectionné.");
-	        Plateau.thèmeClassique(null);
+	        Plateau.themeClassique(null);
 	    }
 	
 	    private void thèmeClair() {
 	        System.out.println("Thème clair sélectionné.");
-	        // Implémentez ici le changement de thème pour le thème clair (blanc et gris)
+	        Plateau.themeClair(null);
 	    }
 	
 	    private void thèmeSombre() {
 	        System.out.println("Thème sombre sélectionné.");
-	        // Implémentez ici le changement de thème pour le thème sombre (noir et gris)
+	        Plateau.themeSombre(null);
 	    }
 	
 	    public void preferenceGraphique() {
 	        // Modifier l’image de fond, du plateau, les couleurs de pions
 	        System.out.println("Modifiez vos préférences graphiques.");
-	        // Code pour la modification des préférences graphiques
+	        // TODO Code pour la modification des préférences graphiques
 	    }
 	
 	    public void emplacementSauvegarde() {

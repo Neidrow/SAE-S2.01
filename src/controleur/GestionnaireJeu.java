@@ -38,7 +38,7 @@ public class GestionnaireJeu {
      * @param nomFichier Le nom du fichier de sauvegarde.
      */
     public void sauvegarderPartie(String nomFichier) {
-        gestionJeu.sauvegarderPartie(nomFichier); // Appel de la méthode du modèle pour sauvegarder la partie
+        Jeu.sauvegarderPartie(nomFichier); // Appel de la méthode du modèle pour sauvegarder la partie
     }
 
     /**

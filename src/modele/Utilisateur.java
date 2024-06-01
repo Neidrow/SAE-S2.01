@@ -4,11 +4,11 @@ import java.util.Scanner;
 
 import controleur.Parametre;
 
-public class GestionUtilisateur {
+public class Utilisateur {
 
     private Scanner scanner;
 
-    public GestionUtilisateur() {
+    public Utilisateur() {
         scanner = new Scanner(System.in);
     }
 
