@@ -86,7 +86,7 @@ public class Piece {
     }
 
     /**
-     * Définit la coordonnée y du pion.
+     * Définit la coordonnée du pion.
      *
      * @param y La nouvelle coordonnée y du pion.
      * @throws IllegalArgumentException si :
