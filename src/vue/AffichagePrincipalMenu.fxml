@@ -1,67 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="600.0" style="-fx-background-color: #BA976D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.ControleurAffichageMenu" >
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="383.0" minWidth="10.0" prefWidth="362.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="102.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="139.0" minHeight="10.0" prefHeight="139.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.ControleurAffichageMenu">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <HBox prefHeight="64.0" prefWidth="600.0" style="-fx-background-color: #3ABBCA;">
          <children>
-            <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="210.0" style="-fx-background-color: #823737; -fx-border-radius: 50px;" text="Nouvelle partie ">
-               <font>
-                  <Font name="Comic Sans MS" size="20.0" />
-               </font>
+            <ImageView fitHeight="64.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo%20but%20info.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox prefHeight="54.0" prefWidth="600.0" style="-fx-background-color: F8DEBC;">
+         <children>
+            <ImageView fx:id="engrenage" fitHeight="53.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/téléchargement-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="regles" fitHeight="69.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/téléchargement__1_-removebg-preview.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="420.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fx:id="retour" fitHeight="33.0" fitWidth="39.0" onMouseClicked="#actionRetour" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/retour%20flèche.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="15.0" top="5.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox prefHeight="60.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Titre.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="210.0" />
+               </HBox.margin>
+            </ImageView>
+            <VBox prefHeight="58.0" prefWidth="131.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
-               <VBox.margin>
-                  <Insets left="85.0" />
-               </VBox.margin>
-            </Button>
-            <Button alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: #666060;" text="Quitter">
+               <HBox.margin>
+                  <Insets left="90.0" />
+               </HBox.margin>
+            </VBox>
+         </children></HBox>
+      <HBox prefHeight="131.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="128.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/damier.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="110.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fitHeight="88.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/play.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="25.0" top="25.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/pions.png" />
+               </image>
+               <HBox.margin>
+                  <Insets top="35.0" />
+               </HBox.margin>
+            </ImageView>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <HBox.margin>
+                  <Insets left="70.0" />
+               </HBox.margin>
+            </VBox>
+         </children></HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="136.0" style="-fx-background-color: #6D4F59;" text="Quitter ">
                <font>
                   <Font name="Comic Sans MS" size="20.0" />
                </font>
-               <VBox.margin>
-                  <Insets left="135.0" top="40.0" />
-               </VBox.margin>
+               <HBox.margin>
+                  <Insets left="235.0" top="25.0" />
+               </HBox.margin>
             </Button>
-         </children>
-      </VBox>
-      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #823737;" GridPane.columnIndex="2">
-         <children>
-            <ImageView fx:id="regle" fitHeight="57.0" fitWidth="51.0" layoutX="33.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@téléchargement__1_-removebg-preview.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="engrenage" onMouseClicked="#buttonEngrenage" fitHeight="72.0" fitWidth="74.0" layoutX="21.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@téléchargement-removebg-preview.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
+         </children></HBox>
    </children>
-</GridPane>
+</VBox>

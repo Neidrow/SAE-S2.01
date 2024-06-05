@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.ControleurPrincipal">
    <children>
       <HBox prefHeight="64.0" prefWidth="600.0" style="-fx-background-color: #3ABBCA;">
          <children>
@@ -19,15 +24,69 @@
       </HBox>
       <HBox prefHeight="54.0" prefWidth="600.0" style="-fx-background-color: F8DEBC;">
          <children>
-            <ImageView fitHeight="53.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="engrenage" fitHeight="53.0" fitWidth="50.0" onMouseClicked="#actionParametres" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/téléchargement-removebg-preview.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="buttonMenu" fitHeight="46.0" fitWidth="47.0" onMouseClicked="#actionMenu" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Menu%20Button.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="500.0" />
+               </HBox.margin>
+            </ImageView>
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" />
-      <HBox prefHeight="100.0" prefWidth="200.0" />
-      <HBox prefHeight="100.0" prefWidth="200.0" />
+      <HBox prefHeight="60.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Titre.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="210.0" />
+               </HBox.margin>
+            </ImageView>
+         </children></HBox>
+      <HBox prefHeight="131.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="128.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/damier.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="110.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fitHeight="88.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/play.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="25.0" top="25.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/pions.png" />
+               </image>
+               <HBox.margin>
+                  <Insets top="35.0" />
+               </HBox.margin>
+            </ImageView>
+         </children></HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="140.0" style="-fx-background-color: #6D4F59;" text="Quitter">
+               <font>
+                  <Font name="Comic Sans MS" size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="235.0" top="25.0" />
+               </HBox.margin>
+            </Button>
+         </children></HBox>
    </children>
 </VBox>

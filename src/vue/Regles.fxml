@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BA976D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.ControleurRegles">
+   <top>
+      <Button fx:id="retour" mnemonicParsing="false" onAction="#buttonRetour" prefHeight="32.0" prefWidth="83.0" style="-fx-background-color: #823737;" text="Retour" textFill="#fffffe" BorderPane.alignment="TOP_LEFT">
+         <font>
+            <Font name="Comic Sans MS" size="12.0" />
+         </font>
+      </Button>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="381.0" prefWidth="400.0" spacing="10.0" style="-fx-background-color: #E0C8AA;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Règles du jeu de dames :" underline="true">
+                     <font>
+                        <Font name="Comic Sans MS" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="70.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <TextArea prefHeight="479.0" prefWidth="400.0" text="Voici un résumé des règles simplifiées du jeu de dames :&#10;&#10;Matériel :&#10;Le jeu se joue sur un damier de 100 cases, seulement les 50 cases foncées sont utilisées.&#10;Chaque joueur dispose de 20 pions (noirs ou blancs).&#10;Le damier est placé de manière que la case en bas à gauche soit foncée pour chaque joueur.&#10;&#10;Marche des pièces :&#10;Il y a deux types de pièces : les pions et les dames.&#10;Les blancs jouent en premier.&#10;Pions : se déplacent en diagonale vers l’avant d’une case libre.&#10;Dames : se déplacent en diagonale dans toutes les directions sur des cases libres successives.&#10;Un pion devient dame en atteignant la dernière rangée de l’adversaire.&#10;&#10;La prise :&#10;Obligatoire : La prise des pièces adverses est obligatoire, aussi bien en avant qu’en arrière.&#10;Pions : sautent par-dessus une pièce adverse située diagonalement devant ou derrière, pour se retrouver sur une case libre derrière celle-ci.&#10;Dames : peuvent sauter par-dessus des pièces adverses situées à n’importe quelle distance sur la même diagonale.&#10;Les prises multiples sont possibles si, après une prise, la pièce se retrouve à nouveau en position de prendre une autre pièce.&#10;Priorité : La prise du plus grand nombre de pièces est obligatoire, même si une dame compte autant qu’un pion.&#10;&#10;Les irrégularités :&#10;Quelques exemples d'irrégularités :&#10;Jouer deux fois de suite.&#10;Jouer une pièce de l’adversaire.&#10;Ne pas effectuer une prise lorsqu’elle est possible.&#10;Retirer des pièces sans raison valable.&#10;L'adversaire décide de rectifier ou non une irrégularité.&#10;&#10;La fin de partie égale :&#10;Égalité : La partie est égale si la même position se répète trois fois avec le même joueur ayant le trait.&#10;Si, pendant 25 coups, il n'y a ni prise ni déplacement de pion.&#10;Lorsque les forces en présence sont trop réduites (comme deux dames contre une dame) et 16 coups sont joués sans décision.&#10;&#10;Le résultat :&#10;Gain : Un joueur gagne si l’adversaire abandonne, ne peut plus jouer alors qu’il a le trait, ou n’a plus de pièces.&#10;Égalité : Les joueurs peuvent convenir d’une égalité ou si aucune des deux parties ne peut l’emporter." />
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+         </children>
+      </VBox>
+   </center>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+   </left>
+   <bottom>
+      <VBox prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
