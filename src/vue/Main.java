@@ -9,8 +9,8 @@ public class Main extends javafx.application.Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Joueur joueur1 = new Joueur(Color.BLACK, "Noir");
-        Joueur joueur2 = new Joueur(Color.RED, "Rouge");
+        Joueur joueur2 = new Joueur(Color.BLACK, "Noir");
+        Joueur joueur1 = new Joueur(Color.WHITE, "Blanc");
 
         Plateau plateau = new Plateau(10, joueur1, joueur2);
 
