@@ -1,430 +1,430 @@
+/**
+ * 
+ */
 package vue;
 
-import java.awt.Label;
+import java.util.ArrayList;
 import java.util.List;
-import controleur.Mouvement;
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
+
+import controleur.Joueur;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import modele.LogiqueJeu;
+import modele.Piece;
+import modele.Utilisateur;
 
-public class Plateau {
-	private static final int SIZE = 10; // Taille de la grille
-	private char[][] plateau;
-	private Label labelMessage;
-	private Label labelChronometre;
-	private int minutes = 10;
-	private int secondes = 0;
-	private GridPane grid; // Ajout du champ GridPane
-	private int selectedX = -1;
-	private int selectedY = -1;
-	private Circle selectedPion = null; // Ajout d'un champ pour le pion sélectionné
-	private char joueurActuel = 'B'; // Blancs commencent généralement
+/**
+ * 
+ */
+public class Plateau extends GridPane{
+	
+	private int taille;
+	
+	private double cellTaille;
+	private Utilisateur utilisateur;
 
-	public Plateau() {
-		this.plateau = new char[SIZE][SIZE]; // Initialise un plateau vide pour l'exemple
-		initialiserPlateau();
-		this.labelMessage = new Label(); // Initialisation du labelMessage
-		this.labelChronometre = new Label(); // Initialisation du labelChronometre
-		LogiqueJeu jeu = new LogiqueJeu(); // Créez une instance de LogiqueJeu
-		LogiqueJeu.initialiserJeu(); // Initialisez le jeu
-	}
+	/** Pièce selectionné par le joueur, null si aucune n'est séléctionner */
+	private Piece selectionnePiece;
+	
+	/** Constructeur de la classe : Génération du plateau de jeu */
+	public Plateau(int taille, Joueur joueur1, Joueur joueur2) {
 
-	// TODO A changer par du FXML
-	public void initialiserPlateau() {
-		for (int i = 0; i < SIZE; i++) {
-			for (int j = 0; j < SIZE; j++) {
-				if ((i + j) % 2 == 0 && i < 4) {
-					plateau[i][j] = 'N'; // Pions noirs
-				} else if ((i + j) % 2 == 0 && i > 5) {
-					plateau[i][j] = 'B'; // Pions blancs
-				} else {
-					plateau[i][j] = ' '; // Case vide
-				}
-			}
-		}
-	}
+		this.taille = taille;
+		this.utilisateur = new Utilisateur(joueur1, joueur2);
+		
+        cellTaille = 450.0 / taille;
 
-	// TODO fxml
-	public BorderPane creerContenu(Stage primaryStage) {
-		BorderPane root = new BorderPane();
+        // Créer un damier avec des cases alternées noires et blanches
+        for (int row = 0; row < taille; row++) {
+            for (int col = 0; col < taille; col++) {
+                Rectangle rectangle = new Rectangle(cellTaille, cellTaille, (row + col) % 2 == 0 ? Color.BLACK : Color.WHITE);
+                final int currentRow = row; // Variable locale finale pour la ligne
+                final int currentCol = col; // Variable locale finale pour la colonne
+                rectangle.setOnMouseClicked(e -> handleMouseClick(currentRow, currentCol));
+                this.add(rectangle, col, row);
 
-		// Options
-		VBox vboxOptions = new VBox(); // Utilisez VBox au lieu de HBox
-		vboxOptions.setAlignment(Pos.CENTER); // Centrer verticalement
-		vboxOptions.setSpacing(10); // Espacement entre les boutons
+                // Ajouter des pions rouges et noirs sur les cases appropriées
+                if ((row + col) % 2 == 1 && row < 4) {
+                    Piece redPiece = new Piece(row, col, cellTaille, this, joueur2);
+                    joueur2.getPieces().add(redPiece);
+                    this.add(redPiece, col, row);
+                } else if ((row + col) % 2 == 1 && row >=taille- 4) {
+                    Piece blackPiece = new Piece(row, col, cellTaille, this, joueur1);
+                    joueur1.getPieces().add(blackPiece);
+                    this.add(blackPiece, col, row);
+                }
+            }
+        }
+    }
 
-		Button btnNouvellePartie = new Button("Nouvelle Partie");
-		btnNouvellePartie.setOnAction(e -> {
-			message("Nouvelle partie commencée.");
+	/** Méthode apeller lors du clique sur une case */
+	private void handleMouseClick(int row, int col) {
+	    System.out.println("Case cliquée : Ligne " + row + ", Colonne " + col);
 
-			// Remplacer le contenu de la scène par l'écran de jeu
-			BorderPane ecranJeu = creerEcranJeu();
-			root.setCenter(ecranJeu); // Ajoutez l'écran de jeu à la racine BorderPane
-
-			// Ajouter la création du plateau avec les pions
-			creerPlateau();
-		});
-
-		Button btnQuitter = new Button("Quitter");
-		btnQuitter.setOnAction(e -> primaryStage.close());
-
-		vboxOptions.getChildren().addAll(btnNouvellePartie, btnQuitter);
-		root.setCenter(vboxOptions);
-
-		return root;
-	}
-
-	private BorderPane creerEcranJeu() {
-		BorderPane ecranJeu = new BorderPane();
-
-		// Initialisation de la grille
-		if (grid == null) {
-			grid = new GridPane();
-			grid.setAlignment(Pos.CENTER); // Centrer le plateau horizontalement et verticalement
-		}
-		ecranJeu.setCenter(grid);
-
-		// Création du plateau de jeu
-		creerPlateau();
-
-		// Autres éléments à ajouter à l'écran de jeu si nécessaire
-
-		return ecranJeu;
-	}
-
-	private void creerPlateau() {
-		grid.getChildren().clear();
-
-		for (int row = 0; row < SIZE; row++) {
-			for (int col = 0; col < SIZE; col++) {
-				Rectangle cell = new Rectangle(50, 50);
-				if ((row + col) % 2 == 0) {
-					cell.setFill(Color.BLACK);
-				} else {
-					cell.setFill(Color.WHITE);
-				}
-				grid.add(cell, col, row);
-
-				if (plateau[row][col] == 'N') {
-					Circle pion = afficherPion(row, col, "noir", false);
-					evenementPions(pion, row, col);
-				} else if (plateau[row][col] == 'B') {
-					Circle pion = afficherPion(row, col, "blanc", false);
-					evenementPions(pion, row, col);
-				}
-			}
-		}
-	}
-
-	public void deplacerPion(int newX, int newY) {
-	    if (selectedX != -1 && selectedY != -1 && plateau[selectedX][selectedY] == joueurActuel) {
-	        char pion = plateau[selectedX][selectedY];
-	        boolean estDame = Character.isUpperCase(pion);
-
-	        if (estDame) {
-	            if (peutDeplacerDame(newX, newY)) {
-	                effectuerDeplacementDame(newX, newY);
-	            }
-	        } else {
-	            int direction = (pion == 'N') ? 1 : -1;
-
-	            if ((newX - selectedX) == direction && Math.abs(newY - selectedY) == 1) {
-	                plateau[newX][newY] = plateau[selectedX][selectedY];
-	                plateau[selectedX][selectedY] = ' ';
-
-	                // Si c'est un mouvement de capture
-	                if (Math.abs(newX - selectedX) == 2 && Math.abs(newY - selectedY) == 2) {
-	                    // Coordonnées de la case mangée
-	                    int midX = (selectedX + newX) / 2;
-	                    int midY = (selectedY + newY) / 2;
-	                    // Vérifier si la case mangée contient un pion adverse
-	                    char pionMange = plateau[midX][midY];
-	                    if ((pion == 'N' && Character.toUpperCase(pionMange) == 'B') || (pion == 'B' && Character.toUpperCase(pionMange) == 'N')) {
-	                        // Retirer le pion mangé
-	                        plateau[midX][midY] = ' ';
-	                        // Déplacer le pion mangeur à la nouvelle position
-	                        plateau[newX][newY] = pion;
-	                    } else {
-	                        // Annuler le mouvement si la case mangée ne contient pas un pion adverse
-	                        plateau[selectedX][selectedY] = pion;
-	                        plateau[newX][newY] = ' ';
-	                    }
-	                }
-
-	                // Si le joueur atteint le bord opposé, transformer le pion en dame
-	                if ((joueurActuel == 'B' && newX == 0) || (joueurActuel == 'N' && newX == SIZE - 1)) {
-	                    plateau[newX][newY] = Character.toUpperCase(plateau[newX][newY]);
-	                    transformation(joueurActuel, newX); // Appel avec deux arguments
-	                }
-
-	                rafraichirPlateau();
-
-	                if (LogiqueJeu.peutContinuerCapture(LogiqueJeu.plateau, newX, newY)) {
-	                    selectedX = newX;
-	                    selectedY = newY;
-	                } else {
-	                    selectedX = -1;
-	                    selectedY = -1;
-	                    if (selectedPion != null) {
-	                        selectedPion.setStroke(Color.GRAY);
-	                    }
-	                    selectedPion = null;
-	                    passerAuJoueurSuivant();
-	                }
-	            }
-	        }
-	    }
-	}
-
-	private boolean peutDeplacerDame(int newX, int newY) {
-	    int deltaX = newX - selectedX;
-	    int deltaY = newY - selectedY;
-
-	    if (Math.abs(deltaX) != Math.abs(deltaY)) {
-	        return false;
-	    }
-
-	    int stepX = Integer.signum(deltaX);
-	    int stepY = Integer.signum(deltaY);
-
-	    int x = selectedX + stepX;
-	    int y = selectedY + stepY;
-
-	    boolean foundOpponent = false;
-
-	    while (x != newX && y != newY) {
-	        char current = plateau[x][y];
-	        if (current != ' ') {
-	            if (foundOpponent || (joueurActuel == 'B' && Character.toUpperCase(current) == 'B') || (joueurActuel == 'N' && Character.toUpperCase(current) == 'N')) {
-	                return false;
-	            }
-	            foundOpponent = true;
-	        }
-	        x += stepX;
-	        y += stepY;
-	    }
-
-	    return true;
-	}
-
-	private void effectuerDeplacementDame(int newX, int newY) {
-	    int deltaX = newX - selectedX;
-	    int deltaY = newY - selectedY;
-
-	    int stepX = Integer.signum(deltaX);
-	    int stepY = Integer.signum(deltaY);
-
-	    int x = selectedX + stepX;
-	    int y = selectedY + stepY;
-
-	    boolean foundOpponent = false;
-
-	    while (x != newX && y != newY) {
-	        char current = plateau[x][y];
-	        if (current != ' ') {
-	            plateau[x][y] = ' ';
-	            foundOpponent = true;
-	        }
-	        x += stepX;
-	        y += stepY;
-	    }
-
-	    plateau[newX][newY] = plateau[selectedX][selectedY];
-	    plateau[selectedX][selectedY] = ' ';
-	    rafraichirPlateau();
-
-	    if (foundOpponent && LogiqueJeu.peutContinuerCapture(LogiqueJeu.plateau, newX, newY)) {
-	        selectedX = newX;
-	        selectedY = newY;
-	    } else {
-	        selectedX = -1;
-	        selectedY = -1;
-	        if (selectedPion != null) {
-	            selectedPion.setStroke(Color.GRAY);
-	        }
-	        selectedPion = null;
-	        passerAuJoueurSuivant();
-	    }
-	}
-
-
-	public void passerAuJoueurSuivant() {
-		joueurActuel = (joueurActuel == 'N') ? 'B' : 'N';
-		System.out.println("C'est au tour des " + (joueurActuel == 'N' ? "noirs" : "blancs"));
-	}
-
-
-	public void evenementPions(Circle pion, int x, int y) {
-	    pion.setOnMouseClicked(event -> {
-	        if (selectedPion == null) {
-	            // Si aucun pion n'est sélectionné, sélectionnez le pion actuel
-	            selectedX = x;
-	            selectedY = y;
-	            selectedPion = pion;
-	            pion.setStroke(Color.RED); // Indiquer la sélection en changeant la bordure
-
-	            // Ajouter un événement de clic pour chaque case de la grille
-	            for (Node node : grid.getChildren()) {
-	                if (node instanceof Rectangle) {
-	                    Rectangle cell = (Rectangle) node;
-	                    cell.setOnMouseClicked(moveEvent -> {
-	                        int newX = GridPane.getRowIndex(cell);
-	                        int newY = GridPane.getColumnIndex(cell);
-	                        deplacerPion(newX, newY);
-	                    });
-	                }
-	            }
-	        } else if (selectedX == x && selectedY == y) {
-	            // Si le pion sélectionné est cliqué à nouveau, désélectionnez-le
-	            selectedX = -1;
-	            selectedY = -1;
-	            selectedPion.setStroke(Color.GRAY); // Restaurer la bordure grise
-	            selectedPion = null;
-	        } else {
-	            // Désélectionner l'ancien pion
-	            selectedPion.setStroke(Color.GRAY); // Restaurer la bordure grise de l'ancien pion
-
-	            // Mettre à jour la sélection au nouveau pion
-	            selectedX = x;
-	            selectedY = y;
-	            selectedPion = pion;
-	            pion.setStroke(Color.RED); // Indiquer la sélection en changeant la bordure
-
-	            // Vérifier si le joueur peut capturer une pièce adverse
-	            if (LogiqueJeu.peutContinuerCapture(LogiqueJeu.plateau, x, y)) {
-	                // Forcer le joueur à capturer la pièce adverse
-	                message("Vous devez capturer une pièce adverse !");
-	            }
-	        }
-	    });
-	}
-
-
-	public void afficherMouvementsPossibles(List<Mouvement> mouvementsPossibles) {
-		// Afficher visuellement les mouvements possibles pour le pion sélectionné
-		if (mouvementsPossibles != null && selectedX != -1 && selectedY != -1) {
-			for (Mouvement mouvement : mouvementsPossibles) {
-				int x = mouvement.getX();
-				int y = mouvement.getY();
-				// Affichez visuellement le mouvement possible en changeant la couleur de la case
-				Rectangle cell = (Rectangle) grid.getChildren().get(x * SIZE + y);
-				cell.setFill(Color.LIGHTGREEN); // Changez la couleur de fond de la case en vert clair
-				// Ajoutez un gestionnaire d'événements de clic à la case pour permettre le déplacement
-				cell.setOnMouseClicked(event -> {
-					// Déplacez le pion sélectionné vers la nouvelle position
-					deplacerPion(x, y);
-				});
-			}
-		}
-	}
-
-	public static void themeClassique(GridPane grid) {
-		System.out.println("Thème classique sélectionné.");
-		for (int row = 0; row < SIZE; row++) {
-			for (int col = 0; col < SIZE; col++) {
-				StackPane cell = (StackPane) grid.getChildren().get(row * SIZE + col);
-				Rectangle rectangle = (Rectangle) cell.getChildren().get(0);
-				if ((row + col) % 2 == 0) {
-					rectangle.setFill(Color.WHITE);
-				} else {
-					rectangle.setFill(Color.BLACK);
-				}
-			}
-		}
-	}
-
-	public static void themeSombre(GridPane grid) {
-		System.out.println("Thème sombre sélectionné.");
-		for (int row = 0; row < SIZE; row++) {
-			for (int col = 0; col < SIZE; col++) {
-				StackPane cell = (StackPane) grid.getChildren().get(row * SIZE + col);
-				Rectangle rectangle = (Rectangle) cell.getChildren().get(0);
-				if ((row + col) % 2 == 0) {
-					rectangle.setFill(Color.BLACK);
-				} else {
-					rectangle.setFill(Color.DARKGRAY);
-				}
-			}
-		}
-	}
-
-	public static void themeClair(GridPane grid) {
-		System.out.println("Thème clair sélectionné.");
-		for (int row = 0; row < SIZE; row++) {
-			for (int col = 0; col < SIZE; col++) {
-				StackPane cell = (StackPane) grid.getChildren().get(row * SIZE + col);
-				Rectangle rectangle = (Rectangle) cell.getChildren().get(0);
-				if ((row + col) % 2 == 0) {
-					rectangle.setFill(Color.WHITE);
-				} else {
-					rectangle.setFill(Color.LIGHTGRAY);
-				}
-			}
-		}
-	}
-
-	public void rafraichirPlateau() {
-	    grid.getChildren().clear();
-	    for (int row = 0; row < SIZE; row++) {
-	        for (int col = 0; col < SIZE; col++) {
-	            Rectangle cell = new Rectangle(50, 50);
-	            if ((row + col) % 2 == 0) {
-	                cell.setFill(Color.BLACK);
+	    if (selectionnePiece != null) {
+	        if (mouvementValide(selectionnePiece, row, col)) {
+	            Piece mangerPion = peutEtreMange(selectionnePiece, row, col);
+	            if (mangerPion != null) {
+	                movePiece(selectionnePiece, row, col);
+	                eneleverPiece(GridPane.getRowIndex(mangerPion), GridPane.getColumnIndex(mangerPion));
+	                System.out.println("Pion mangé");
 	            } else {
-	                cell.setFill(Color.WHITE);
+	                movePiece(selectionnePiece, row, col);
+	                System.out.println("Déplacement du pion de (" + selectionnePiece.getLigne() + ", " + selectionnePiece.getCol() + ") à (" + row + ", " + col + ")");
 	            }
-	            grid.add(cell, col, row);
 
-	            char pion = plateau[row][col];
-	            if (pion != ' ') {
-	                boolean estDame = (pion == 'N' && row == SIZE - 1) || (pion == 'B' && row == 0);
-	                Circle circlePion = afficherPion(row, col, (pion == 'N' || pion == 'n') ? "noir" : "blanc", estDame);
-	                evenementPions(circlePion, row, col);
-	                if (estDame) {
-	                    circlePion.setStroke(Color.GOLD); // Appliquer la bordure dorée aux dames
-	                    circlePion.setStrokeWidth(3);
+	            // Vérification si le pion atteint l'extrémité du plateau
+	            if ((selectionnePiece.getProprietaire() == utilisateur.getJoueur1() && row == 0) ||
+	                (selectionnePiece.getProprietaire() == utilisateur.getJoueur2() && row ==taille- 1)) {
+	                selectionnePiece.transformationDame();
+	            }
+
+	            selectionnePiece = null;
+	            utilisateur.changeTour();
+	            effacerSurbrillance();
+	            verificationFinPartie(); // Vérification de la fin du jeu après chaque mouvement
+	        } else {
+	            System.out.println("Mouvement non autorisé.");
+	        }
+	    } else {
+	        System.out.println("Veuillez d'abord sélectionner un pion");
+	    }
+	}
+
+	
+	/**
+     * Méthode pour vérifier si une case est occupée par une pièce
+     * @param row Ligne de la case
+     * @param col Colonne de la case
+     * @return true si la case est occupée, false sinon
+     */
+    private boolean estOccupe(int row, int col) {
+        for (Node node : this.getChildren()) {
+            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col) {
+                if (node instanceof Piece) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private Piece getPieceA(int row, int col) {
+    	for (Node node : this.getChildren()) {
+            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col) {
+                if (node instanceof Piece) {
+                	Piece piece = (Piece) node;
+                	return piece;
+                }
+            }
+        }
+    	return null;
+    }
+    
+    /**
+     * Méthode pour vérifier si une pièce peut être mangée lors d'un mouvement
+     */
+    private Piece peutEtreMange(Piece piece, int newRow, int newCol) {
+        int row = piece.getLigne();
+        int col = piece.getCol();
+        
+        //Vérifier si la piece est une dame:
+        if(piece.estDame()) {
+        	int deltaRow = Integer.compare(newRow, row); // Direction du déplacement en ligne
+            int deltaCol = Integer.compare(newCol, col); // Direction du déplacement en colonne
+            int currentRow = row + deltaRow;
+            int currentCol = col + deltaCol;
+            int pieceConnu = 0;
+
+            while (currentRow != newRow && currentCol != newCol) {
+                System.out.println("Vérification case : (" + currentRow + "," + currentCol + ")");
+                if (estOccupe(currentRow, currentCol)) {
+                    System.out.println("Piece rencontrée");
+                    pieceConnu++;
+                    if (pieceConnu > 1) {
+                    	System.out.println("Non");
+                        return null; // Si plus d'une pièce est rencontrée, le mouvement n'est pas valide
+                    }
+                }
+                currentRow += deltaRow;
+                currentCol += deltaCol;
+            }
+            if(pieceConnu == 1 ) {
+	            currentRow = row + deltaRow;
+	            currentCol = col + deltaCol;
+	            while (currentRow != newRow && currentCol != newCol) {
+	                for (Node node : this.getChildren()) {
+	                    if (GridPane.getRowIndex(node) == currentRow && GridPane.getColumnIndex(node) == currentCol) {
+	                        if (node instanceof Piece) {
+	                            Piece middlePiece = (Piece) node;
+	                            if (middlePiece.getProprietaire() != piece.getProprietaire()) {
+	                                return middlePiece;
+	                            }
+	                        }
+	                    }
+	                }
+	                currentRow += deltaRow;
+	                currentCol += deltaCol;
+	            }
+            }
+        } else {
+        	
+        	int deltaRow = Integer.compare(newRow, row); // Direction du déplacement en ligne
+            int deltaCol = Integer.compare(newCol, col); // Direction du déplacement en colonne
+            int currentRow = row + deltaRow;
+            int currentCol = col + deltaCol;
+            int pieceConnu = 0;
+            
+        	while (currentRow != newRow && currentCol != newCol) {
+                System.out.println("Vérification case : (" + currentRow + "," + currentCol + ")");
+                if (estOccupe(currentRow, currentCol)) {
+                    System.out.println("Piece rencontrée");
+                    pieceConnu++;
+                    if (pieceConnu > 1) {
+                    	System.out.println("Non");
+                        return null; // Si plus d'une pièce est rencontrée, le mouvement n'est pas valide
+                    }
+                }
+                currentRow += deltaRow;
+                currentCol += deltaCol;
+            }
+        	
+        	int middleRow = (row + newRow) / 2;
+            int middleCol = (col + newCol) / 2;
+
+            for (Node node : this.getChildren()) {
+                if (GridPane.getRowIndex(node) == middleRow && GridPane.getColumnIndex(node) == middleCol) {
+                    if (node instanceof Piece) {
+                        Piece middlePiece = (Piece) node;
+                        if (middlePiece.getProprietaire().getColor() != piece.getProprietaire().getColor()) {
+                            return middlePiece;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Vérification validité mouvement :
+     * Si la piece est une dame :
+     * 		-si la case sélectionner est occupé
+     */
+    private boolean mouvementValide(Piece piece, int newRow, int newCol) {
+    	int row = piece.getLigne();
+        int col = piece.getCol();
+        
+        //Vérifier si la pièce est une dame
+        if(piece.estDame()) {
+        	//Mouvement de Dame
+        	
+        	//Vérification si la case est occupé
+        	if (estOccupe(newRow, newCol)) {
+                return false;
+            }
+        	//Vérification mouvement en diagonal :
+        	if (Math.abs(newRow - row) == Math.abs(newCol - col)) {
+        		//Vérification si le mouvement mange un autre pion :
+                if(peutEtreMange(piece, newRow, newCol) != null) {
+                	return true;
+                }
+        	} else {
+        		return false;
+        	}
+        } else {
+        	//Mouvement classique
+        	System.out.println("Mouvement classique");
+        	
+        	//Vérification si la case selectionner est occupé
+        	if (estOccupe(newRow, newCol)) {
+                return false;
+            }
+        	
+        	//Vérification si le mouvement mange un autre pion
+        	if(peutEtreMange(piece, newRow, newCol) != null) {
+        		return true;
+        	}
+        	
+        	//Vérifier la direction du déplacement
+        	if (piece.getProprietaire() == utilisateur.getJoueur2() && newRow <= row) {
+                return false;
+            } else if (piece.getProprietaire() == utilisateur.getJoueur1() && newRow >= row) {
+                return false;
+            }
+        	
+        	//Vérification si le mouvement est en diagonal
+        	if (Math.abs(newRow - row) != 1 || Math.abs(newCol - col) != 1) {
+                return false;
+            }
+        	
+        	
+        }
+        return true;
+    }
+    
+    /**
+     * Méthode pour supprimer une pièce du plateau
+     * @param rowDiff La différence de ligne entre la position actuelle et la nouvelle position de la pièce
+     * @param colDiff La différence de colonne entre la position actuelle et la nouvelle position de la pièce
+     */
+    private void eneleverPiece(int row, int col) {
+        for (Node node : this.getChildren()) {
+            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col) {
+                if (node instanceof Piece) {
+                    Piece piece = (Piece) node;
+                    piece.getProprietaire().getPieces().remove(piece); // Supprimer de la liste des pièces du joueur
+                    this.getChildren().remove(node);
+                    break;
+                }
+            }
+        }
+    }
+    
+    private void movePiece(Piece selectionnePiece, int row, int col) {
+    	this.getChildren().remove(selectionnePiece);
+
+        // Déplacer la pièce à la nouvelle position
+        setRowIndex(selectionnePiece, row);
+        setColumnIndex(selectionnePiece, col);
+        selectionnePiece.setLigne(row); // Mettre à jour les coordonnées de la pièce
+        selectionnePiece.setCol(col); // Mettre à jour les coordonnées de la pièce
+
+        // Ajouter la pièce à la nouvelle position
+        this.add(selectionnePiece, col, row);
+    	
+    }
+    
+    
+	public void setselectionnePiece(Piece selectionnePiece) {
+		this.selectionnePiece = selectionnePiece;
+	}
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+	
+	private void verificationFinPartie() {
+	    if (utilisateur.getJoueur1().getPieces().isEmpty()) {
+	        System.out.println("Le joueur 2 a gagné !");
+	        // Terminer le jeu ou afficher un message de fin
+	    } else if (utilisateur.getJoueur2().getPieces().isEmpty()) {
+	        System.out.println("Le joueur 1 a gagné !");
+	        // Terminer le jeu ou afficher un message de fin
+	    }
+	}
+	
+	public List<int[]> getMouvementPossible(Piece piece) {
+		List<int[]> mouvementPossible = new ArrayList<>();
+	    int row = piece.getLigne();
+	    int col = piece.getCol();
+	    Joueur opponent = piece.getProprietaire() == utilisateur.getJoueur1() ? utilisateur.getJoueur2() : utilisateur.getJoueur1();
+
+	    if (piece.estDame()) {
+	        // Mouvement pour une dame
+	        int[][] directions = {{1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+	        for (int[] dir : directions) {
+	            int dRow = dir[0];
+	            int dCol = dir[1];
+	            int currentRow = row + dRow;
+	            int currentCol = col + dCol;
+	            boolean canJump = false;
+	            while (coordonneValide(currentRow, currentCol)) {
+	                if (getPiece(currentRow, currentCol) == null) {
+	                    mouvementPossible.add(new int[]{currentRow, currentCol});
+	                } else if (getPiece(currentRow, currentCol).getProprietaire() == opponent) {
+	                    int sautLigne = currentRow + dRow;
+	                    int sautCol = currentCol + dCol;
+	                    if (coordonneValide(sautLigne, sautCol) && getPiece(sautLigne, sautCol) == null) {
+	                        mouvementPossible.add(new int[]{sautLigne, sautCol});
+	                        canJump = true;
+	                    } else {
+	                        break;
+	                    }
 	                } else {
-	                    circlePion.setStroke(Color.GRAY);
+	                    break;
+	                }
+	                if (!canJump) {
+	                    currentRow += dRow;
+	                    currentCol += dCol;
+	                } else {
+	                    break;
+	                }
+	            }
+	        }
+	    } else {
+	        // Mouvement classique
+	        int direction = piece.getProprietaire() == utilisateur.getJoueur1() ? -1 : 1;
+	        int[][] directions = {{direction, 1}, {direction, -1}};
+	        for (int[] dir : directions) {
+	            int dRow = dir[0];
+	            int dCol = dir[1];
+	            int newRow = row + dRow;
+	            int newCol = col + dCol;
+	            if (coordonneValide(newRow, newCol)) {
+	                if (getPiece(newRow, newCol) == null) {
+	                    mouvementPossible.add(new int[]{newRow, newCol});
+	                } else if (getPiece(newRow, newCol).getProprietaire() == opponent) {
+	                    int sautLigne = newRow + dRow;
+	                    int sautCol = newCol + dCol;
+	                    if (coordonneValide(sautLigne, sautCol) && getPiece(sautLigne, sautCol) == null) {
+	                        mouvementPossible.add(new int[]{sautLigne, sautCol});
+	                    }
 	                }
 	            }
 	        }
 	    }
+
+	    return mouvementPossible;
 	}
 
 
-	public Circle afficherPion(int x, int y, String couleur, boolean estDame) {
-	    Circle pion = new Circle(20); // Créez un cercle pour représenter le pion
-		    pion.setFill(couleur.equals("noir") ? Color.BLACK : Color.WHITE); // Couleur du pion en fonction du propriétaire
-		    pion.setStrokeWidth(3);
-	    if (estDame) {
-	        pion.setStroke(Color.GOLD); // Bordure dorée pour indiquer une dame
-	    } else {
-	        pion.setStroke(Color.GRAY); // Bordure grise pour un pion ordinaire
+	private boolean coordonneValide(int row, int col) {
+	    return row >= 0 && row <taille&& col >= 0 && col < taille;
+	}
+
+	private Piece getPiece(int row, int col) {
+	    for (Node node : this.getChildren()) {
+	        if (node instanceof Piece && getRowIndex(node) == row && getColumnIndex(node) == col) {
+	            return (Piece) node;
+	        }
 	    }
-	    grid.add(pion, y, x); // Ajoutez le pion à la position spécifiée sur le plateau de jeu
-	    GridPane.setHalignment(pion, HPos.CENTER); // Centrer horizontalement
-	    GridPane.setValignment(pion, VPos.CENTER); // Centrer verticalement
-	    return pion;
-	}
-
-	public static boolean transformation(char proprietaire, int x) {
-	    boolean transformationOk = (x == 9 && proprietaire == 'N') || (x == 0 && proprietaire == 'B');
-	    return transformationOk;
+	    return null;
 	}
 
 
-	private void message(String message) {
-		labelMessage.setText(message);
+	public void afficherMouvementPossible(List<int[]> mouvementPossible) {
+	    for (int[] move : mouvementPossible) {
+	        int row = move[0];
+	        int col = move[1];
+	        Rectangle surbrillance = new Rectangle(cellTaille, cellTaille, Color.YELLOW);
+	        surbrillance.setOpacity(0.5);
+	        surbrillance.setMouseTransparent(true);
+	        setRowIndex(surbrillance, row);
+	        setColumnIndex(surbrillance, col);
+	        this.getChildren().add(surbrillance);
+	    }
 	}
+
+	public void effacerSurbrillance() {
+	    List<Node> surbrillance = new ArrayList<>();
+	    for (Node node : this.getChildren()) {
+	        if (node instanceof Rectangle && ((Rectangle) node).getFill().equals(Color.YELLOW)) {
+	        	surbrillance.add(node);
+	        }
+	    }
+	    this.getChildren().removeAll(surbrillance);
+	}
+
+	/**
+	 * @return
+	 */
+	public Piece getSelectionnePiece() {
+		
+		return selectionnePiece;
+	}
+
+
 }

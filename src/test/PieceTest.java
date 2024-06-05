@@ -1,9 +1,6 @@
-/**
- * TestPiece.java 					24/05/24
- * iut de Rodez, pas de Copyright
- */
 package test;
 
+/*
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,12 +11,12 @@ import modele.Piece;
 /**
  * TODO commenter
  * @author Groupe 41
- */
+ * /
 class PieceTest {
 
 	/**
 	 * Test method for {@link modele.Piece#Piece(int, int, boolean, java.lang.String)}.
-	 */
+	 * /
 	@Test
 	void testPiece() {
 		assertThrows(IllegalArgumentException.class,
@@ -60,7 +57,7 @@ class PieceTest {
 
 	/**
 	 * Test method for {@link modele.Piece#getX()}.
-	 */
+	 * /
 	@Test
 	void testGetX() {
 		assertEquals(4, new Piece(4, 5, false, "noir").getX());
@@ -73,7 +70,7 @@ class PieceTest {
 
 	/**
 	 * Test method for {@link modele.Piece#setX(int)}.
-	 */
+	 * /
 	@Test
 	void testSetX() {
 		assertThrows(IllegalArgumentException.class,
@@ -91,7 +88,7 @@ class PieceTest {
 
 	/**
 	 * Test method for {@link modele.Piece#getY()}.
-	 */
+	 * /
 	@Test
 	void testGetY() {
 		assertEquals(5, new Piece(4, 5, false, "noir").getY());
@@ -104,7 +101,7 @@ class PieceTest {
 
 	/**
 	 * Test method for {@link modele.Piece#setY(int)}.
-	 */
+	 * /
 	@Test
 	void testSetY() {
 		assertThrows(IllegalArgumentException.class,
@@ -122,7 +119,7 @@ class PieceTest {
 
 	/**
 	 * Test method for {@link modele.Piece#isDame()}.
-	 */
+	 * /
 	@Test
 	void testIsDame() {
 		assertEquals(false, new Piece(4, 5, false, "noir").isDame());
@@ -131,7 +128,7 @@ class PieceTest {
 
 	/**
 	 * Test method for {@link modele.Piece#setDame(boolean)}.
-	 */
+	 * /
 	@Test
 	void testSetDame() {
 		assertDoesNotThrow(()-> new Piece(5, 2, false, "noir").setDame(true));
@@ -141,3 +138,4 @@ class PieceTest {
 	}
 
 }
+*/

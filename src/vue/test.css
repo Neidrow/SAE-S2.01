@@ -1,0 +1,4 @@
+/* Ajouter des propriétés de style CSS pour centrer le GridPane */
+.GridPane {
+    -fx-alignment: center;
+}
