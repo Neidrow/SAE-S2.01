@@ -35,7 +35,7 @@ public class LogiqueJeu {
         }
     }
 
-    public static boolean verificationMouvement(int x1, int y1, int x2, int y2) {
+    private static boolean verificationMouvement(int x1, int y1, int x2, int y2) {
         // Vérifier qu’un utilisateur peut faire un coup
         if (plateau == null) {
             throw new IllegalStateException("Le plateau n'est pas initialisé.");
