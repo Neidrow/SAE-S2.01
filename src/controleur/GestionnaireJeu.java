@@ -1,8 +1,8 @@
 package controleur;
 
-import vue.Piece;
 import modele.GestionJeu;
 import modele.LogiqueJeu;
+import modele.Piece;
 
 /**
  * La classe Controleur gère les interactions entre l'interface utilisateur et le modèle de jeu.

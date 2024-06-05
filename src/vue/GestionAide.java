@@ -1,6 +1,7 @@
 package vue;
 
 import controleur.Mouvement;
+import modele.Piece;
 
 public class GestionAide {
     public void aideMouvement(Piece pieceSelectionnee) {

@@ -3,7 +3,7 @@
  * IUT de Rodez, pas de copyright
  */
 
-package vue;
+package modele;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,15 +159,6 @@ public class Piece {
      */
     public String getProprietaire() {
         return proprietaire;
-    }
-
-    /**
-     * Définit le nom du propriétaire du pion.
-     *
-     * @param proprietaire Le nouveau nom du propriétaire du pion.
-     */
-    public void setProprietaire(String proprietaire) {
-        this.proprietaire = proprietaire;
     }
 
     /**
