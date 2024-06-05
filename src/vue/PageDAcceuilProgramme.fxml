@@ -5,23 +5,30 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BA976D;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
+            <Text fill="#3abbca" strokeType="OUTSIDE" strokeWidth="0.0" text="Jeu de dames">
+               <font>
+                  <Font name="Rage Italic" size="80.0" />
+               </font>
+            </Text>
             <Button mnemonicParsing="false" style="-fx-background-color: #823737; -fx-border-radius: 50px;" text="Nouvelle partie" textFill="#fffffe">
                <VBox.margin>
-                  <Insets left="85.0" />
+                  <Insets />
                </VBox.margin>
                <font>
                   <Font name="Comic Sans MS" size="20.0" />
                </font></Button>
             <Button mnemonicParsing="false" style="-fx-background-color: #666060;" text="Quitter" textFill="WHITE">
                <VBox.margin>
-                  <Insets left="85.0" />
+                  <Insets />
                </VBox.margin>
                <font>
                   <Font name="Comic Sans MS" size="20.0" />
@@ -29,35 +36,27 @@
          </children>
       </VBox>
    </center>
-   <right>
-      <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+   <top>
+      <HBox prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: #823737;" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" prefHeight="103.0" prefWidth="35.0" spacing="20.0" style="-fx-background-color: #823737;">
+            <ImageView fitHeight="50.0" fitWidth="50.0">
+               <image>
+                  <Image url="@../../picto_informatique_2017.png" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="556.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" style="-fx-background-color: #823737;" text="X">
+                  <Button mnemonicParsing="false" style="-fx-background-color: #823737;" text="Button" textFill="WHITE">
                      <VBox.margin>
-                        <Insets left="20.0" />
+                        <Insets right="10.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="Comic Sans MS" size="12.0" />
+                     </font>
                   </Button>
-                  <ImageView fitHeight="30.0" fitWidth="30.0">
-                     <image>
-                        <Image url="@../../gear-1119298_640.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="30.0" fitWidth="30.0">
-                     <image>
-                        <Image url="@../../livre.png" />
-                     </image>
-                  </ImageView>
                </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets left="50.0" />
-               </VBox.margin>
             </VBox>
          </children>
-      </VBox>
-   </right>
+      </HBox>
+   </top>
 </BorderPane>
