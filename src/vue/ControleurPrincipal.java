@@ -5,9 +5,13 @@ import javafx.fxml.FXML;
 public class ControleurPrincipal {
 
 	@FXML
-    void buttonMenu() {
+    void actionMenu() {
         Main.activerAffichagePrincipalMenu();
-      
     }
+	
+	@FXML 
+	void actionParametres() {
+		Main.activerParametres();
+	}
 
 }

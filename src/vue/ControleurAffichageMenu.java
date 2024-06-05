@@ -9,4 +9,14 @@ public class ControleurAffichageMenu {
 		Main.activerParametres();
 	}
 	
+	@FXML 
+	void actionRetour() {
+		Main.activerPrincipal();
+	}
+	
+	@FXML
+	void actionRegles() {
+		Main.activerRegles();
+	}
+	
 }

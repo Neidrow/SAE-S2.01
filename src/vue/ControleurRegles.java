@@ -2,11 +2,10 @@ package vue;
 
 import javafx.fxml.FXML;
 
-public class ControleurParametres {
-
+public class ControleurRegles {
+	
 	@FXML 
 	void buttonRetour() { 
-		Main.activerPrincipal();
-		
+		Main.activerAffichagePrincipalMenu();
 	}
 }
