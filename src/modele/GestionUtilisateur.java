@@ -45,6 +45,9 @@ public class GestionUtilisateur {
 
     private Scanner scanner;
 
+    /**
+     * Créer un scanner pour enregistrer les pseudos
+     */
     public GestionUtilisateur() {
         scanner = new Scanner(System.in);
     }
@@ -52,6 +55,7 @@ public class GestionUtilisateur {
     public String nomUtilisateur() {
         System.out.print("Entrez votre nom d'utilisateur : ");
         String nom = scanner.nextLine();
+        new GestionUtilisateur(nom);
         return nom;
     }
 

@@ -1,6 +1,5 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -9,11 +8,8 @@ import modele.GestionUtilisateur;
 
 class TestGestionUtilisateur {
 
-	/**
-	 * Test method for {@link modele.GestionUtilisateur#GestionUtilisateur(String, String)}.
-	 */
 	@Test
-	void testGestionUtilisateur() {
+	void testGestionUtilisateurString() {
 		assertThrows(IllegalArgumentException.class, 
 				()-> new GestionUtilisateur("pseudo"));
 		assertThrows(IllegalArgumentException.class, 
@@ -32,9 +28,21 @@ class TestGestionUtilisateur {
 		assertDoesNotThrow(()-> new GestionUtilisateur("onil"));
 	}
 
-	/**
-	 * Test method for {@link modele.GestionUtilisateur#getNomUtilisateur()}.
-	 */
+	@Test
+	void testGestionUtilisateur() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testNomUtilisateur() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testAllerDansParametre() {
+		fail("Not yet implemented");
+	}
+
 	@Test
 	void testGetNomUtilisateur() {
 		assertEquals("enjien",
@@ -43,9 +51,6 @@ class TestGestionUtilisateur {
 				new GestionUtilisateur("onil").getNomUtilisateur());
 	}
 
-	/**
-	 * Test method for {@link modele.GestionUtilisateur#getCamp()}.
-	 */
 	@Test
 	void testGetCamp() {
 		assertEquals("noir",
@@ -54,9 +59,6 @@ class TestGestionUtilisateur {
 				new GestionUtilisateur("onil").getCamp());
 	}
 
-	/**
-	 * Test method for {@link modele.GestionUtilisateur#gtTrait()}.
-	 */
 	@Test
 	void testGetTrait() {
 		assertEquals(true,
@@ -65,15 +67,12 @@ class TestGestionUtilisateur {
 				new GestionUtilisateur("enjien").getTrait());
 	}
 
-	/**
-	 * Test method for {@link modele.GestionUtilisateur#setTrait(boolean)}.
-	 */
 	@Test
 	void testSetTrait() {
 		assertDoesNotThrow(()-> new GestionUtilisateur("onil")
-				           .setTrait(false));
+		           .setTrait(false));
 		assertDoesNotThrow(()-> new GestionUtilisateur("ENJIEN")
-		           		   .setTrait(true));
+        		   .setTrait(true));
 	}
 
 }
