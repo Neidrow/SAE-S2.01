@@ -4,6 +4,10 @@
 
 package modele;
 
+import java.util.Scanner;
+
+import controleur.Parametre;
+
 /**
  * Gère tout ce qui est lié à l'utilisateur, la définition du pseudo,
  * la gestion du trait ainsi que la sélection de la couleur du joueur
@@ -26,17 +30,34 @@ public class GestionUtilisateur {
 	 * @throws IllegalArgumentException si couleur != noir ou blanc
 	 *         ou si le pseudo est une chaine vide
 	 */
-    public GestionUtilisateur(String pseudo, String couleur) {
+    public GestionUtilisateur(String pseudo) {
     	if (pseudo.isBlank()) {
     		throw new IllegalArgumentException("Le pseudo est vide !");
     	}
-    	if (couleur != "noir" && couleur != "blanc") {
-    		throw new IllegalArgumentException("La couleur de l'équipe"
-    				                           + "est invalide !");
-    	}
         nomUtilisateur = pseudo;
-        camp = couleur;
-        trait = couleur == "blanc";
+        if (Math.random() >= 0.5) {
+        	camp = "blanc";
+        } else {
+        	camp = "noir";
+        }
+        trait = camp == "blanc";
+    }
+
+    private Scanner scanner;
+
+    public GestionUtilisateur() {
+        scanner = new Scanner(System.in);
+    }
+
+    public String nomUtilisateur() {
+        System.out.print("Entrez votre nom d'utilisateur : ");
+        String nom = scanner.nextLine();
+        return nom;
+    }
+
+    public void allerDansParametre() {
+        Parametre parametre = new Parametre();
+        parametre.gestionParametres();
     }
 
     /**

@@ -5,9 +5,14 @@
 
 package vue;
 
+
 /**
- * TODO définir à quoi sert la classe
+ * Gestion des mrddages s'aide
  */
+
+import controleur.Mouvement;
+import modele.Piece;
+
 public class GestionAide {
 	
 	/**
@@ -15,7 +20,12 @@ public class GestionAide {
 	 * ce tour
 	 */
     public void aideMouvement(Piece pieceSelectionnee) {
-        // TODO Afficher les coups possibles par un pion sélectionné
+    	
+        // Afficher les coups possibles par un pion sélectionné
+        System.out.println("Affichage des coups possibles pour la pièce sélectionnée : ");
+        for (Mouvement mouvement : pieceSelectionnee.getMouvementsPossibles()) {
+            System.out.println("Déplacement possible vers la case : (" + mouvement.getX() + ", " + mouvement.getY() + ")");
+        }
     }
 
     /**
@@ -23,7 +33,10 @@ public class GestionAide {
      * nom de l'équipe gagnante
      */
     public void victoire() {
-        // TODO Afficher quel joueur a gagné lorsque les conditions de victoire sont remplies
+
+        // Afficher quel joueur a gagné lorsque les conditions de victoire sont remplies
+        System.out.println("Victoire d'un joueur !");
+
     }
 
     /**
@@ -32,6 +45,7 @@ public class GestionAide {
      * impossible
      */
     public void interdiction() {
-        // TODO Afficher quand un joueur fait un coup impossible
+        // Afficher quand un joueur fait un coup impossible
+        System.out.println("Coup impossible !");
     }
 }

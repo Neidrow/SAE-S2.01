@@ -15,21 +15,21 @@ class TestGestionUtilisateur {
 	@Test
 	void testGestionUtilisateur() {
 		assertThrows(IllegalArgumentException.class, 
-				()-> new GestionUtilisateur("pseudo", "zef"));
+				()-> new GestionUtilisateur("pseudo"));
 		assertThrows(IllegalArgumentException.class, 
-				()-> new GestionUtilisateur("pseudo", ""));
+				()-> new GestionUtilisateur("pseudo"));
 		assertThrows(IllegalArgumentException.class, 
-				()-> new GestionUtilisateur("pseudo", " "));
+				()-> new GestionUtilisateur("pseudo"));
 		assertThrows(IllegalArgumentException.class, 
-				()-> new GestionUtilisateur("", "noir"));
+				()-> new GestionUtilisateur(""));
 		assertThrows(IllegalArgumentException.class, 
-				()-> new GestionUtilisateur(" ", "blanc"));
+				()-> new GestionUtilisateur(" "));
 		assertThrows(IllegalArgumentException.class, 
-				()-> new GestionUtilisateur("\n", "blanc"));
+				()-> new GestionUtilisateur("\n"));
 		assertThrows(IllegalArgumentException.class, 
-				()-> new GestionUtilisateur("\t", "noir"));
-		assertDoesNotThrow(()-> new GestionUtilisateur("enjien", "noir"));
-		assertDoesNotThrow(()-> new GestionUtilisateur("onil", "blanc"));
+				()-> new GestionUtilisateur("\t"));
+		assertDoesNotThrow(()-> new GestionUtilisateur("enjien"));
+		assertDoesNotThrow(()-> new GestionUtilisateur("onil"));
 	}
 
 	/**
@@ -38,9 +38,9 @@ class TestGestionUtilisateur {
 	@Test
 	void testGetNomUtilisateur() {
 		assertEquals("enjien",
-				new GestionUtilisateur("enjien", "noir").getNomUtilisateur());
+				new GestionUtilisateur("enjien").getNomUtilisateur());
 		assertEquals("onil",
-				new GestionUtilisateur("onil", "blanc").getNomUtilisateur());
+				new GestionUtilisateur("onil").getNomUtilisateur());
 	}
 
 	/**
@@ -49,9 +49,9 @@ class TestGestionUtilisateur {
 	@Test
 	void testGetCamp() {
 		assertEquals("noir",
-				new GestionUtilisateur("enjien", "noir").getCamp());
+				new GestionUtilisateur("enjien").getCamp());
 		assertEquals("blanc",
-				new GestionUtilisateur("onil", "blanc").getCamp());
+				new GestionUtilisateur("onil").getCamp());
 	}
 
 	/**
@@ -60,9 +60,9 @@ class TestGestionUtilisateur {
 	@Test
 	void testGetTrait() {
 		assertEquals(true,
-				new GestionUtilisateur("onil", "blanc").getTrait());
+				new GestionUtilisateur("onil").getTrait());
 		assertEquals(false,
-				new GestionUtilisateur("enjien", "noir").getTrait());
+				new GestionUtilisateur("enjien").getTrait());
 	}
 
 	/**
@@ -70,9 +70,9 @@ class TestGestionUtilisateur {
 	 */
 	@Test
 	void testSetTrait() {
-		assertDoesNotThrow(()-> new GestionUtilisateur("onil", "blanc")
+		assertDoesNotThrow(()-> new GestionUtilisateur("onil")
 				           .setTrait(false));
-		assertDoesNotThrow(()-> new GestionUtilisateur("ENJIEN", "noir")
+		assertDoesNotThrow(()-> new GestionUtilisateur("ENJIEN")
 		           		   .setTrait(true));
 	}
 
