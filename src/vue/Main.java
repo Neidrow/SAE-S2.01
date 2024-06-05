@@ -1,9 +1,9 @@
 package vue;
 
-import controleur.Joueur;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import modele.Joueur;
 
 public class Main extends javafx.application.Application {
 

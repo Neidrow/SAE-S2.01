@@ -3,8 +3,6 @@
  */
 package modele;
 
-import controleur.Joueur;
-
 /**
  * 
  */
@@ -42,7 +40,7 @@ public class Utilisateur {
 	}
 
 	/**
-	 * @param joueur12
+	 * @param 
 	 */
 	public void setTourJoueur(Joueur Joueur) {
 		tourJoueur = joueur2;

@@ -1,11 +1,10 @@
-package controleur;
+package modele;
 
  
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.paint.Color;
-import modele.Piece;
 
 public class Joueur {
 

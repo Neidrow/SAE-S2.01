@@ -1,6 +1,5 @@
 package modele;
 
-import controleur.Joueur;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import vue.Plateau;
@@ -29,7 +28,7 @@ public class Piece extends Circle {
 
         setRadius(0.4 * cellTaille); // Définir le rayon en fonction de la moitié de la taille de la cellule
         setFill(proprietaire.getColor());
-        setStroke(Color.BLACK); // Ajout de la bordure noire
+        setStroke(Color.GRAY); // Ajout de la bordure noire
         setStrokeWidth(3.0); // Largeur de la bordure
         setOnMouseClicked(e -> handleMouseClick());
     }
@@ -40,7 +39,7 @@ public class Piece extends Circle {
                 plateau.deselectionnePiece();
                 System.out.println("Piece désélectionnée (Ligne " + ligne + ", Colonne " + col + ")");
             } else {
-                plateau.selectionnePiece(this);
+             plateau.selectionnePiece(this);
                 System.out.println("Piece sélectionnée (Ligne " + ligne + ", Colonne " + col + ")");
             }
         } else {
@@ -69,13 +68,13 @@ public class Piece extends Circle {
 	}
 
 	public void transformationDame() {
-	    if (estDame) {
+	    if (!estDame) {
 	        estDame = true;
-	        setStroke(Color.GOLD); // Définir la bordure de la pièce en doré
-	        setStrokeWidth(10.0); // Définir l'épaisseur de la bordure
+	        setStrokeWidth(4.0); // Définir l'épaisseur de la bordure
+
+	        setStroke(Color.PURPLE); // Ajout de la bordure noire
 	    }
 	}
-
 
 	public Joueur getProprietaire() {
 		return proprietaire;
