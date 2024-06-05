@@ -72,7 +72,7 @@ public class PlateauControleur {
 
     public void movePiece(Piece selectionnePiece, int row, int col) {
         // Méthode déjà implémentée dans Plateau, pas besoin de réécrire ici
-        plateau.movePiece(selectionnePiece, row, col);
+        plateau.deplacerPiece(selectionnePiece, row, col);
     }
 
     public void selectionnePiece(Piece piece) {
