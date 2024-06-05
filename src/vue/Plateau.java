@@ -28,6 +28,7 @@ import modele.Utilisateur;
  * 
  * <p>Le plateau gère également les interactions utilisateur telles que le clic sur une case pour
  * sélectionner une pièce ou effectuer un mouvement.</p>
+ * @author Amjed SEHIL et Xavier TABORDA
  */
 
 public class Plateau extends GridPane{
@@ -54,7 +55,7 @@ public class Plateau extends GridPane{
 		// Création du damier avec des cases alternées noires et blanches
 		for (int row = 0; row < taille; row++) {
 			for (int col = 0; col < taille; col++) {
-				Rectangle rectangle = new Rectangle(cellTaille, cellTaille, (row + col) % 2 == 0 ? Color.BLACK : Color.WHITE);
+				Rectangle rectangle = new Rectangle(cellTaille, cellTaille, (row + col) % 2 == 0 ? Color.WHITE : Color.BLACK);
 				final int currentRow = row; // Variable locale finale pour la ligne
 				final int currentCol = col; // Variable locale finale pour la colonne
 				rectangle.setOnMouseClicked(e -> handleMouseClick(currentRow, currentCol));
@@ -72,23 +73,36 @@ public class Plateau extends GridPane{
 				}
 				// Configuration du plateau
 				setHgap(2); // Espace horizontal entre les cellules
-				setVgap(2); // Espace vertical entre les cellules
+				setVgap(2); // Espace vertical entre les cellules                                                                           
 				setMinSize(taille * cellTaille, taille * cellTaille); // Définir la taille minimale du plateau
 				setMaxSize(taille * cellTaille, taille * cellTaille); // Définir la taille maximale du plateau
 				setAlignment(Pos.CENTER); // Centre le plateau dans son parent
 			}
 		}
 	}
+	
+	/**
+	 * Renvoie la taille de l'objet ou de la structure.
+	 * 
+	 * @return La taille de l'objet ou de la structure.
+	 */
 	public int getTaille() {
-		return taille;
+	    return taille;
 	}
-	// Ajoutez cette méthode pour centrer le plateau
+
+	/**
+	 * Centre le plateau dans la scène en définissant sa taille minimale et en ajustant l'espacement entre ses éléments.
+	 * 
+	 * @param sceneWidth La largeur de la scène.
+	 * @param sceneHeight La hauteur de la scène.
+	 */
 	public void centrerPlateau(int sceneWidth, int sceneHeight) {
-		setMinSize(sceneWidth, sceneHeight); // Définit la taille minimale du GridPane
-		setVgap(10); // Espacement vertical
-		setHgap(10); // Espacement horizontal
-		setAlignment(Pos.CENTER); // Centre les éléments dans le GridPane
+	    setMinSize(sceneWidth, sceneHeight); // Définit la taille minimale du GridPane
+	    setVgap(10); // Espacement vertical
+	    setHgap(10); // Espacement horizontal
+	    setAlignment(Pos.CENTER); // Centre les éléments dans le GridPane
 	}
+
 	/**
 	 * Méthode appelée lors du clic sur une case
 	 * @param row Ligne de la case cliquée
@@ -331,8 +345,8 @@ public class Plateau extends GridPane{
 
 	/**
 	 * Méthode pour supprimer une pièce du plateau
-	 * @param rowDiff La différence de ligne entre la position actuelle et la nouvelle position de la pièce
-	 * @param colDiff La différence de colonne entre la position actuelle et la nouvelle position de la pièce
+	 * @param row La différence de ligne entre la position actuelle et la nouvelle position de la pièce
+	 * @param col La différence de colonne entre la position actuelle et la nouvelle position de la pièce
 	 */
 	public void eneleverPiece(int row, int col) {
 		for (Node node : this.getChildren()) {

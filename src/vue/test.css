@@ -1,4 +1,5 @@
-/* Ajouter des propriétés de style CSS pour centrer le GridPane */
-.GridPane {
-    -fx-alignment: center;
+.plateau {
+    -fx-border-color: black; /* Couleur de la bordure */
+    -fx-border-width: 2px; /* Largeur de la bordure */
+    -fx-border-style: solid; /* Style de la bordure */
 }
