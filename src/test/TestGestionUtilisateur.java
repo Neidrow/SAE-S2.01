@@ -27,22 +27,7 @@ class TestGestionUtilisateur {
 		assertDoesNotThrow(()-> new GestionUtilisateur("enjien"));
 		assertDoesNotThrow(()-> new GestionUtilisateur("onil"));
 	}
-
-	@Test
-	void testGestionUtilisateur() {
-		
-	}
-
-	@Test
-	void testNomUtilisateur() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testAllerDansParametre() {
-		fail("Not yet implemented");
-	}
-
+	
 	@Test
 	void testGetNomUtilisateur() {
 		assertEquals("enjien",

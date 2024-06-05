@@ -2,6 +2,8 @@ package controleur;
 
 import vue.Piece;
 
+import java.io.IOException;
+
 import modele.GestionJeu;
 import modele.LogiqueJeu;
 
@@ -28,7 +30,11 @@ public class GestionnaireJeu {
      * @param nomFichier Le nom du fichier de sauvegarde.
      */
     public void chargerPartie(String nomFichier) {
-        gestionJeu.chargerPartieSauvegardee(nomFichier); // Appel de la méthode du modèle pour charger une partie
+        try {
+			gestionJeu.chargerPartieSauvegardee(nomFichier);
+		} catch (IOException e) {
+			System.out.print(e.getMessage());
+		} // Appel de la méthode du modèle pour charger une partie
         // Mettre à jour l'interface graphique avec l'état de la partie chargée...
     }
 

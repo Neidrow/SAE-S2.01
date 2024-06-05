@@ -16,14 +16,19 @@ public class GestionJeu {
         logiqueJeu.initialiserJeu();
     }
 
-    public void chargerPartieSauvegardee(String nomFichier) {
+    public void chargerPartieSauvegardee(String nomFichier) throws IOException {
         // Charger une partie à partir d'un fichier spécifié
+    	if (!nomFichier.endsWith(".dame")) {
+    		throw new IllegalArgumentException("Le fichier ne contient pas la"
+    				                           + "bonne extension");
+    	}
         try (BufferedReader br = new BufferedReader(new FileReader(nomFichier))) {
             etatPartie = br.readLine();
             System.out.println("Partie chargée depuis " + nomFichier);
             logiqueJeu.chargerEtat(etatPartie);
         } catch (IOException e) {
-            System.err.println("Erreur lors du chargement de la partie: " + e.getMessage());
+            throw new IOException ("Erreur lors du chargement de la partie: "
+                               + e.getMessage());
         }
     }
 
@@ -45,6 +50,10 @@ public class GestionJeu {
 
     public void supprimerPartieSauvegardee(String nomFichier) {
         // Supprimer une partie sauvegardée spécifique
+    	if (!nomFichier.endsWith(".dame")) {
+    		throw new IllegalArgumentException("Le fichier ne contient pas la"
+    				                           + "bonne extension");
+    	}
         File fichier = new File(nomFichier);
         if (fichier.delete()) {
             System.out.println("La partie " + nomFichier + " a été supprimée.");
@@ -55,6 +64,9 @@ public class GestionJeu {
 
     public void sauvegarderPartie(String nomFichier) {
         // Sauvegarder l'état actuel du jeu dans un fichier
+    	if (!nomFichier.endsWith(".dame")) {
+    		nomFichier += ".dame";
+    	}
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(nomFichier))) {
             bw.write(logiqueJeu.obtenirEtat());
             System.out.println("Partie sauvegardée dans " + nomFichier);
