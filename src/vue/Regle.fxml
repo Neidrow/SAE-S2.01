@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BA976D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Button fx:id="retour" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: #823737;" text="Retour" textFill="#fffffe" BorderPane.alignment="TOP_LEFT">
+         <font>
+            <Font name="Comic Sans MS" size="12.0" />
+         </font>
+      </Button>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="362.0" prefWidth="400.0" spacing="10.0" style="-fx-background-color: #E0C8AA;" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Paramètres :" underline="true">
+               <font>
+                  <Font name="Comic Sans MS" size="24.0" />
+               </font>
+            </Label>
+            <Label text="Paramètres généraux :">
+               <font>
+                  <Font name="Comic Sans MS" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets right="150.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="11.0" prefWidth="400.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="137.0" text="Chronomètre de la partie">
+                     <HBox.margin>
+                        <Insets right="150.0" />
+                     </HBox.margin>
+                  </Label>
+                  <CheckBox mnemonicParsing="false" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="11.0" prefWidth="400.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="137.0" text="Temps pour jouer le tour">
+                     <HBox.margin>
+                        <Insets right="150.0" />
+                     </HBox.margin>
+                  </Label>
+                  <CheckBox mnemonicParsing="false" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="11.0" prefWidth="400.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="137.0" text="Aide coups possibles">
+                     <HBox.margin>
+                        <Insets right="150.0" />
+                     </HBox.margin>
+                  </Label>
+                  <CheckBox mnemonicParsing="false" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="11.0" prefWidth="400.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="137.0" text="Emplacement sauvegarde">
+                     <HBox.margin>
+                        <Insets right="120.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Button mnemonicParsing="false" text="Choisir" />
+               </children>
+            </HBox>
+            <Label text="Paramètres graphiques :">
+               <font>
+                  <Font name="Comic Sans MS" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets right="140.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="11.0" prefWidth="400.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="137.0" text="Thème de l’interface :">
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin>
+                  </Label>
+                  <RadioButton mnemonicParsing="false" text="sombre" />
+                  <RadioButton mnemonicParsing="false" text="clair" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="11.0" prefWidth="400.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="148.0" text="Image de fond du plateau :">
+                     <HBox.margin>
+                        <Insets right="110.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Button mnemonicParsing="false" text="Choisir" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="11.0" prefWidth="400.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="137.0" text="Couleur pions joueur 1 :">
+                     <HBox.margin>
+                        <Insets right="115.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Button mnemonicParsing="false" text="Couleur" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="11.0" prefWidth="400.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="137.0" text="Couleur pions joueur 2 :">
+                     <HBox.margin>
+                        <Insets right="115.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Button mnemonicParsing="false" text="Couleur" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+   </left>
+   <bottom>
+      <VBox prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
