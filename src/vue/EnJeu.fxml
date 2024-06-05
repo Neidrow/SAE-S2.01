@@ -78,6 +78,6 @@
       <HBox prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E0C8AA;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E0C8AA; -fx-border-color: #A98152; -fx-border-width: 5;" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
