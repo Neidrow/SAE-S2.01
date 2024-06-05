@@ -1,12 +1,13 @@
 /**
- * Utilisateur.java						28/05/2024
+ * Utilisateur.java					28/05/2024
  * Iut de Rodez, pas de copyright
  */
 package modele;
 
 /**
  * <p>Représente un utilisateur du jeu.</p>
- * <p>Un utilisateur est associé à deux joueurs et gère le tour de jeu.</p>
+ * <p>Un utilisateur est associé à deux joueurs et gère 
+ * le tour de jeu.</p>
  * @author Amjed SEHIL et Rodrigo TABORDA
  */
 
@@ -17,7 +18,8 @@ public class Utilisateur {
 	private Joueur joueur2;
 	
 	/**
-	 * <p>Initialise un utilisateur avec les deux joueurs spécifiés.</p>
+	 * <p>Initialise un utilisateur avec 
+	 * les deux joueurs spécifiés.</p>
 	 * 
 	 * @param joueur1 Le premier joueur.
 	 * @param joueur2 Le deuxième joueur.
@@ -30,7 +32,8 @@ public class Utilisateur {
 	
 	/**
 	 * <p>Change le tour de jeu en passant au joueur suivant.</p>
-	 * <p>Si le tour est actuellement attribué à joueur1, il sera attribué à joueur2 et vice versa.</p>
+	 * <p>Si le tour est actuellement attribué à joueur1, 
+	 * il sera attribué à joueur2 et vice versa.</p>
 	 */
 	public void changeTour() {
         if (tourJoueur == joueur1) {
@@ -38,7 +41,8 @@ public class Utilisateur {
         } else {
             tourJoueur = joueur1;
         }
-        System.out.println("Tour du joueur : " + (tourJoueur == joueur1 ? joueur1.getName() : joueur2.getName()));
+        System.out.println("Tour du joueur : " + 
+        (tourJoueur == joueur1 ? joueur1.getName() : joueur2.getName()));
     }
 
 	/**

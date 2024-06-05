@@ -1,5 +1,5 @@
 /**
- * Joueur.java									26/05/2024
+ * Joueur.java						26/05/2024
  * Iut de Rodez, pas de copyright
  */
 package modele;
@@ -22,7 +22,8 @@ public class Joueur {
 	private List<Piece> pieces;
 
 	/**
-	 * <p>Initialise un joueur avec la couleur et le pseudo spécifiés.</p>
+	 * <p>Initialise un joueur avec la couleur et le 
+	 * pseudo spécifiés.</p>
 	 * 
 	 * @param couleur La couleur du joueur.
 	 * @param joueurPseudo Le pseudo du joueur.

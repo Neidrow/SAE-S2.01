@@ -11,14 +11,18 @@ import modele.Joueur;
 
 /**
  * <p>Classe principale de l'application.</p>
- * <p>Elle étend la classe javafx.application.Application et définit la méthode start() pour lancer l'application.</p>
- * <p>Cette classe crée une instance de Plateau et affiche une fenêtre graphique contenant ce plateau.</p>
- * <p>Elle crée également deux joueurs avec des couleurs différentes et les associe au plateau.</p>
+ * <p>Elle étend la classe javafx.application.Application et
+ *  définit la méthode start() pour lancer l'application.</p>
+ * <p>Cette classe crée une instance de Plateau et affiche une 
+ * fenêtre graphique contenant ce plateau.</p>
+ * <p>Elle crée également deux joueurs avec des couleurs
+ *  différentes et les associe au plateau.</p>
  * <p>Le titre de la fenêtre est défini comme "Plateau de Dames".</p>
  * <p>La taille de la fenêtre est définie sur 1200x1000 pixels.</p>
- * <p>Pour lancer l'application, la méthode main appelle la méthode launch() de la classe Application avec les arguments fournis.</p>
+ * <p>Pour lancer l'application, la méthode main appelle
+ *  la méthode launch() de la classe Application avec les arguments fournis.</p>
  * 
- * @author Votre nom
+ * @author Amjed SEHIL et Rodrigo TABORDA
  */
 public class Main extends javafx.application.Application {
 
@@ -36,7 +40,9 @@ public class Main extends javafx.application.Application {
         // Création du plateau avec les joueurs
         Plateau plateau = new Plateau(10, joueur1, joueur2);
       
-        // Création de la scène avec le plateau et définition de sa taille
+        /* Création de la scène avec le plateau et définition 
+         * de sa taille.
+         */
         Scene scene = new Scene(plateau, 1200, 1000);
 
         // Définition du titre de la fenêtre
