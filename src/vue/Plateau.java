@@ -24,7 +24,7 @@ public class Plateau {
 	private Label labelMessage;
 	private Label labelChronometre;
 	private int minutes = 10;
-	private int seconds = 0;
+	private int secondes = 0;
 	private GridPane grid; // Ajout du champ GridPane
 	private int selectedX = -1;
 	private int selectedY = -1;
@@ -54,8 +54,6 @@ public class Plateau {
 			}
 		}
 	}
-
-
 
 	// TODO fxml
 	public BorderPane creerContenu(Stage primaryStage) {
@@ -132,56 +130,133 @@ public class Plateau {
 	public void deplacerPion(int newX, int newY) {
 	    if (selectedX != -1 && selectedY != -1 && plateau[selectedX][selectedY] == joueurActuel) {
 	        char pion = plateau[selectedX][selectedY];
-	        int direction = (pion == 'N') ? 1 : -1;
+	        boolean estDame = Character.isUpperCase(pion);
 
-	        if ((newX - selectedX) == direction && Math.abs(newY - selectedY) == 1) {
-	            plateau[newX][newY] = plateau[selectedX][selectedY];
-	            plateau[selectedX][selectedY] = ' ';
+	        if (estDame) {
+	            if (peutDeplacerDame(newX, newY)) {
+	                effectuerDeplacementDame(newX, newY);
+	            }
+	        } else {
+	            int direction = (pion == 'N') ? 1 : -1;
 
-	            // Si c'est un mouvement de capture
-	            if (Math.abs(newX - selectedX) == 2 && Math.abs(newY - selectedY) == 2) {
-	                // Coordonnées de la case mangée
-	                int midX = (selectedX + newX) / 2;
-	                int midY = (selectedY + newY) / 2;
-	                // Vérifier si la case mangée contient un pion adverse
-	                char pionMange = plateau[midX][midY];
-	                if ((pion == 'N' && Character.toUpperCase(pionMange) == 'B') || (pion == 'B' && Character.toUpperCase(pionMange) == 'N')) {
-	                    // Retirer le pion mangé
-	                    plateau[midX][midY] = ' ';
-	                    // Déplacer le pion mangeur à la nouvelle position
-	                    plateau[newX][newY] = pion;
+	            if ((newX - selectedX) == direction && Math.abs(newY - selectedY) == 1) {
+	                plateau[newX][newY] = plateau[selectedX][selectedY];
+	                plateau[selectedX][selectedY] = ' ';
+
+	                // Si c'est un mouvement de capture
+	                if (Math.abs(newX - selectedX) == 2 && Math.abs(newY - selectedY) == 2) {
+	                    // Coordonnées de la case mangée
+	                    int midX = (selectedX + newX) / 2;
+	                    int midY = (selectedY + newY) / 2;
+	                    // Vérifier si la case mangée contient un pion adverse
+	                    char pionMange = plateau[midX][midY];
+	                    if ((pion == 'N' && Character.toUpperCase(pionMange) == 'B') || (pion == 'B' && Character.toUpperCase(pionMange) == 'N')) {
+	                        // Retirer le pion mangé
+	                        plateau[midX][midY] = ' ';
+	                        // Déplacer le pion mangeur à la nouvelle position
+	                        plateau[newX][newY] = pion;
+	                    } else {
+	                        // Annuler le mouvement si la case mangée ne contient pas un pion adverse
+	                        plateau[selectedX][selectedY] = pion;
+	                        plateau[newX][newY] = ' ';
+	                    }
+	                }
+
+	                // Si le joueur atteint le bord opposé, transformer le pion en dame
+	                if ((joueurActuel == 'B' && newX == 0) || (joueurActuel == 'N' && newX == SIZE - 1)) {
+	                    plateau[newX][newY] = Character.toUpperCase(plateau[newX][newY]);
+	                    transformation(joueurActuel, newX); // Appel avec deux arguments
+	                }
+
+	                rafraichirPlateau();
+
+	                if (LogiqueJeu.peutContinuerCapture(LogiqueJeu.plateau, newX, newY)) {
+	                    selectedX = newX;
+	                    selectedY = newY;
 	                } else {
-	                    // Annuler le mouvement si la case mangée ne contient pas un pion adverse
-	                    plateau[selectedX][selectedY] = pion;
-	                    plateau[newX][newY] = ' ';
+	                    selectedX = -1;
+	                    selectedY = -1;
+	                    if (selectedPion != null) {
+	                        selectedPion.setStroke(Color.GRAY);
+	                    }
+	                    selectedPion = null;
+	                    passerAuJoueurSuivant();
 	                }
-	            }
-
-	            // Si le joueur atteint le bord opposé, transformer le pion en dame
-	            if ((joueurActuel == 'B' && newX == 0) || (joueurActuel == 'N' && newX == SIZE - 1)) {
-	                plateau[newX][newY] = Character.toUpperCase(plateau[newX][newY]);
-	                transformation(joueurActuel, newX); // Appel avec deux arguments
-	            }
-
-	            rafraichirPlateau();
-
-	            if (LogiqueJeu.peutContinuerCapture(LogiqueJeu.plateau, newX, newY)) {
-	                selectedX = newX;
-	                selectedY = newY;
-	            } else {
-	                selectedX = -1;
-	                selectedY = -1;
-	                if (selectedPion != null) {
-	                    selectedPion.setStroke(Color.GRAY);
-	                }
-	                selectedPion = null;
-	                passerAuJoueurSuivant();
 	            }
 	        }
 	    }
 	}
 
+	private boolean peutDeplacerDame(int newX, int newY) {
+	    int deltaX = newX - selectedX;
+	    int deltaY = newY - selectedY;
 
+	    if (Math.abs(deltaX) != Math.abs(deltaY)) {
+	        return false;
+	    }
+
+	    int stepX = Integer.signum(deltaX);
+	    int stepY = Integer.signum(deltaY);
+
+	    int x = selectedX + stepX;
+	    int y = selectedY + stepY;
+
+	    boolean foundOpponent = false;
+
+	    while (x != newX && y != newY) {
+	        char current = plateau[x][y];
+	        if (current != ' ') {
+	            if (foundOpponent || (joueurActuel == 'B' && Character.toUpperCase(current) == 'B') || (joueurActuel == 'N' && Character.toUpperCase(current) == 'N')) {
+	                return false;
+	            }
+	            foundOpponent = true;
+	        }
+	        x += stepX;
+	        y += stepY;
+	    }
+
+	    return true;
+	}
+
+	private void effectuerDeplacementDame(int newX, int newY) {
+	    int deltaX = newX - selectedX;
+	    int deltaY = newY - selectedY;
+
+	    int stepX = Integer.signum(deltaX);
+	    int stepY = Integer.signum(deltaY);
+
+	    int x = selectedX + stepX;
+	    int y = selectedY + stepY;
+
+	    boolean foundOpponent = false;
+
+	    while (x != newX && y != newY) {
+	        char current = plateau[x][y];
+	        if (current != ' ') {
+	            plateau[x][y] = ' ';
+	            foundOpponent = true;
+	        }
+	        x += stepX;
+	        y += stepY;
+	    }
+
+	    plateau[newX][newY] = plateau[selectedX][selectedY];
+	    plateau[selectedX][selectedY] = ' ';
+	    rafraichirPlateau();
+
+	    if (foundOpponent && LogiqueJeu.peutContinuerCapture(LogiqueJeu.plateau, newX, newY)) {
+	        selectedX = newX;
+	        selectedY = newY;
+	    } else {
+	        selectedX = -1;
+	        selectedY = -1;
+	        if (selectedPion != null) {
+	            selectedPion.setStroke(Color.GRAY);
+	        }
+	        selectedPion = null;
+	        passerAuJoueurSuivant();
+	    }
+	}
 
 
 	public void passerAuJoueurSuivant() {
