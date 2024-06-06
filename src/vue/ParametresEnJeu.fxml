@@ -6,16 +6,16 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BA976D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.ControleurParametres">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BA976D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.ControleurParametresEnJeu">
    <top>
-      <Button fx:id="retour" mnemonicParsing="false" onAction="#buttonRetour" prefHeight="32.0" prefWidth="83.0" style="-fx-background-color: #823737;" text="Retour" textFill="#fffffe" BorderPane.alignment="TOP_LEFT">
+      <Button fx:id="retour" mnemonicParsing="false" onAction="#buttonRetour" prefHeight="42.0" prefWidth="97.0" style="-fx-background-color: #823737;" text="Retour" BorderPane.alignment="TOP_LEFT">
          <font>
-            <Font name="Comic Sans MS" size="12.0" />
+            <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Button>
    </top>
    <center>
-      <VBox alignment="CENTER" prefHeight="392.0" prefWidth="400.0" spacing="10.0" style="-fx-background-color: #E0C8AA;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="296.0" prefWidth="400.0" spacing="10.0" style="-fx-background-color: #E0C8AA;" BorderPane.alignment="CENTER">
          <children>
             <Label text="Paramètres :" underline="true">
                <font>
@@ -78,15 +78,14 @@
                   <Insets right="140.0" />
                </VBox.margin>
             </Label>
-            <HBox alignment="CENTER" prefHeight="11.0" prefWidth="400.0" spacing="10.0">
+            <HBox alignment="CENTER" prefHeight="76.0" prefWidth="400.0" spacing="10.0">
                <children>
                   <Label prefHeight="21.0" prefWidth="158.0" text="Thème de l’interface :">
                      <HBox.margin>
                         <Insets right="50.0" />
                      </HBox.margin>
                   </Label>
-                  <RadioButton mnemonicParsing="false" text="sombre" />
-                  <RadioButton mnemonicParsing="false" text="clair" />
+                  <ColorPicker prefHeight="353.0" prefWidth="97.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="11.0" prefWidth="400.0">

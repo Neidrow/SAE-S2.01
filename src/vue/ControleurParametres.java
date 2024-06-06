@@ -4,9 +4,10 @@ import javafx.fxml.FXML;
 
 public class ControleurParametres {
 
-	@FXML 
-	void buttonRetour() { 
-		Main.activerPrincipal();
-		
-	}
+    @SuppressWarnings("static-method")
+    @FXML 
+    void buttonRetour() { 
+        Main.activerPrincipal();
+
+    }
 }

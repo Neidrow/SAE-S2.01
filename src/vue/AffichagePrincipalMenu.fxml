@@ -30,7 +30,7 @@
                   <Image url="@images/téléchargement-removebg-preview.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="regles" fitHeight="69.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="regles" fitHeight="69.0" fitWidth="46.0" onMouseClicked="#actionRegles" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/téléchargement__1_-removebg-preview.png" />
                </image>

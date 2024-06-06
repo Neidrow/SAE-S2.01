@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #BA976D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.ControleurPartie">
+   <left>
+      <VBox alignment="CENTER" prefHeight="339.0" prefWidth="136.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Joueur 1 :" underline="true">
+               <font>
+                  <Font name="Comic Sans MS" size="25.0" />
+               </font>
+            </Label>
+            <VBox alignment="CENTER" prefHeight="80.0" prefWidth="136.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Couleur : ">
+                           <font>
+                              <Font name="Comic Sans MS" size="15.0" />
+                           </font>
+                        </Label>
+                        <Circle fill="DODGERBLUE" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Label text="Joueur 2 :" underline="true">
+               <font>
+                  <Font name="Comic Sans MS" size="25.0" />
+               </font>
+            </Label>
+            <VBox alignment="CENTER" prefHeight="80.0" prefWidth="136.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Couleur : ">
+                           <font>
+                              <Font name="Comic Sans MS" size="15.0" />
+                           </font>
+                        </Label>
+                        <Circle fill="DODGERBLUE" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <VBox alignment="CENTER" prefHeight="339.0" prefWidth="129.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Au tour de :">
+               <font>
+                  <Font name="Comic Sans MS" size="20.0" />
+               </font>
+            </Text>
+            <Label fx:id="joueur1Label" />
+         </children>
+      </VBox>
+   </right>
+   <top>
+      <HBox alignment="TOP_RIGHT" prefHeight="28.0" prefWidth="600.0" BorderPane.alignment="TOP_LEFT">
+         <children>
+            <Button mnemonicParsing="false" onAction="#buttonMenu" prefHeight="42.0" prefWidth="86.0" style="-fx-background-color: #823737;" text="Menu">
+               <font>
+                  <Font name="Comic Sans MS" size="20.0" />
+               </font></Button>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <center>
+      <Pane fx:id="panneauJeu" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #E0C8AA; -fx-border-color: #A98152; -fx-border-width: 5;" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

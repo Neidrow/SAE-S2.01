@@ -3,20 +3,23 @@ package vue;
 import javafx.fxml.FXML;
 
 public class ControleurAffichageMenu {
-	
-	@FXML
-	void buttonEngrenage() {
-		Main.activerParametres();
-	}
-	
-	@FXML 
-	void actionRetour() {
-		Main.activerPrincipal();
-	}
-	
-	@FXML
-	void actionRegles() {
-		Main.activerRegles();
-	}
-	
+        
+        @SuppressWarnings("static-method")
+        @FXML
+        void buttonEngrenage() {
+                Main.activerParametres();
+        }
+        
+        @SuppressWarnings("static-method")
+        @FXML 
+        void actionRetour() {
+                Main.activerPrincipal();
+        }
+        
+        @SuppressWarnings("static-method")
+        @FXML
+        void actionRegles() {
+                Main.activerRegles();
+        }
+        
 }

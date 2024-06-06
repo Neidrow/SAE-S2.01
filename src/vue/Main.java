@@ -1,13 +1,14 @@
 /**
- * Main.java									25/05/2024
+ * Main.java                                                   25/05/2024
  * Iut de Rodez, pas de copyright
  */
 package vue;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import modele.Joueur;
 
 /**
  * <p>Classe principale de l'application.</p>
@@ -24,33 +25,136 @@ import modele.Joueur;
  * 
  * @author Amjed SEHIL et Rodrigo TABORDA
  */
-public class Main extends javafx.application.Application {
+public class Main extends Application {
+
+    private static Scene AffichagePrincipal;
+    private static Scene AffichagePrincipalMenu;
+    private static Scene Parametres;
+    private static Scene Regles;
+    private static Scene ChoisirPseudo;
+    private static Scene Partie;
+    private static Scene MenuPartie;
+    private static Scene ParametresEnJeu;
+    private static Stage fenetrePrincipale;
 
     /**
-     * Méthode principale pour lancer l'application.
+     * TODO commenter le rôle de cette méthode
+     */
+    public static void activerPrincipal() {
+        fenetrePrincipale.setScene(AffichagePrincipal);
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode
+     */
+    public static void activerAffichagePrincipalMenu() {
+        fenetrePrincipale.setScene(AffichagePrincipalMenu);
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode
+     */
+    public static void activerParametres() {
+        fenetrePrincipale.setScene(Parametres);
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode
+     */
+    public static void activerRegles() {
+        fenetrePrincipale.setScene(Regles);
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode
+     */
+    public static void activerChoixPseudo() {
+        fenetrePrincipale.setScene(ChoisirPseudo);
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode
+     */
+    public static void activerPartie() {
+        fenetrePrincipale.setScene(Partie);
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode
+     */
+    public static void activerMenuPartie() {
+        fenetrePrincipale.setScene(MenuPartie);
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode
+     */
+    public static void activerParametresEnJeu() {
+        fenetrePrincipale.setScene(ParametresEnJeu);
+    }
+
+    /**
+     * Méthode principale pour liée les interfaces.
      * 
      * @param primaryStage Le stage principal de l'application.
      */
     @Override
     public void start(Stage primaryStage) {
-        // Création des joueurs
-        Joueur joueur2 = new Joueur(Color.BLACK, "Noir");
-        Joueur joueur1 = new Joueur(Color.WHITE, "Blanc");
+        try {
+            FXMLLoader chargeurFXMLAffichagePrincipal = new FXMLLoader();
+            chargeurFXMLAffichagePrincipal.setLocation(getClass().getResource("AffichagePrincipal.fxml"));
+            Parent conteneur = chargeurFXMLAffichagePrincipal.load();
+            AffichagePrincipal = new Scene(conteneur);
 
-        // Création du plateau avec les joueurs
-        Plateau plateau = new Plateau(10, joueur1, joueur2);
-      
-        /* Création de la scène avec le plateau et définition 
-         * de sa taille.
-         */
-        Scene scene = new Scene(plateau, 1200, 1000);
+            FXMLLoader chargeurFXMLAffichagePrincipalMenu = new FXMLLoader();
+            chargeurFXMLAffichagePrincipalMenu.setLocation(getClass().getResource("AffichagePrincipalMenu.fxml"));
+            conteneur = chargeurFXMLAffichagePrincipalMenu.load();
+            AffichagePrincipalMenu = new Scene(conteneur);
 
-        // Définition du titre de la fenêtre
-        primaryStage.setTitle("Plateau de Dames");
-        
-        // Définition de la scène dans le stage et affichage du stage
-        primaryStage.setScene(scene);
-        primaryStage.show();
+            FXMLLoader chargeurFXMLParametres = new FXMLLoader();
+            chargeurFXMLParametres.setLocation(getClass().getResource("Parametres.fxml"));
+            conteneur = chargeurFXMLParametres.load();
+            Parametres = new Scene(conteneur);
+
+            FXMLLoader chargeurFXMLRegles = new FXMLLoader();
+            chargeurFXMLRegles.setLocation(getClass().getResource("Regles.fxml"));
+            conteneur = chargeurFXMLRegles.load();
+            Regles = new Scene(conteneur);
+
+            FXMLLoader chargeurFXMLChoisirPseudo = new FXMLLoader();
+            chargeurFXMLChoisirPseudo.setLocation(getClass().getResource("ChoisirPseudo.fxml"));
+            conteneur = chargeurFXMLChoisirPseudo.load();
+            ChoisirPseudo = new Scene(conteneur);
+
+            FXMLLoader chargeurFXMLPartie = new FXMLLoader();
+            chargeurFXMLPartie.setLocation(getClass().getResource("Partie.fxml"));
+            conteneur = chargeurFXMLPartie.load();
+            Partie = new Scene(conteneur);
+
+            FXMLLoader chargeurFXMLMenuPartie = new FXMLLoader();
+            chargeurFXMLMenuPartie.setLocation(getClass().getResource("MenuPartie.fxml"));
+            conteneur = chargeurFXMLMenuPartie.load();
+            MenuPartie = new Scene(conteneur);
+
+            FXMLLoader chargeurFXMLParametresEnJeu = new FXMLLoader();
+            chargeurFXMLParametresEnJeu.setLocation(getClass().getResource("ParametresEnJeu.fxml"));
+            conteneur = chargeurFXMLParametresEnJeu.load();
+            ParametresEnJeu = new Scene(conteneur);
+
+            // Définir le titre, la hauteur et la largeur de la fenêtre principale
+            primaryStage.setTitle("Jeu de dames");
+
+            // Définir explicitement la taille de la fenêtre principale
+            primaryStage.setWidth(745);
+            primaryStage.setHeight(572);
+
+            primaryStage.setScene(AffichagePrincipal);
+            fenetrePrincipale = primaryStage;
+            primaryStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
