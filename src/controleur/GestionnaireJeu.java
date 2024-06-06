@@ -1,6 +1,6 @@
 package controleur;
 
-import vue.Piece;
+import modele.Piece;
 
 import java.io.IOException;
 

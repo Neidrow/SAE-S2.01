@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import vue.Piece;
+import modele.Piece;
 
 /**
  * TODO commenter
